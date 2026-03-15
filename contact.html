@@ -599,25 +599,43 @@ function buildReview() {
   `;
 }
 
-function submitBooking() {
-  // TODO: Replace with Stripe Checkout session creation
-  // This will call your Netlify function which creates a Stripe Checkout session
-  // with application_fee_amount: 2000 ($20 commission)
-  console.log('BOOKING:', JSON.stringify(booking));
+async function submitBooking() {
+  const btn = document.getElementById('btnPay');
+  btn.disabled = true;
+  btn.innerHTML = 'Processing... ⏳';
 
-  // Show confirmation
-  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-  document.getElementById('stepDone').classList.add('active');
+  try {
+    const response = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service: booking.service,
+        price: booking.price,
+        unit: booking.unit,
+        date: booking.dateDisplay,
+        time: booking.time,
+        fname: booking.fname,
+        lname: booking.lname,
+        email: booking.email,
+        phone: booking.phone,
+        notes: booking.notes,
+      }),
+    });
 
-  document.getElementById('confirmDetails').innerHTML = `
-    <div class="cd-row"><span class="cd-label">Service</span><span class="cd-value">${booking.service}</span></div>
-    <div class="cd-row"><span class="cd-label">Date</span><span class="cd-value">${booking.dateDisplay}</span></div>
-    <div class="cd-row"><span class="cd-label">Time</span><span class="cd-value">${booking.time} ET</span></div>
-    <div class="cd-row"><span class="cd-label">Confirmation sent to</span><span class="cd-value">${booking.email}</span></div>
-  `;
+    const data = await response.json();
 
-  // Hide step indicator
-  document.querySelector('.step-indicator').style.display = 'none';
+    if (data.url) {
+      // Redirect to Stripe Checkout
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || 'Failed to create checkout session');
+    }
+  } catch (err) {
+    console.error('Payment error:', err);
+    btn.disabled = false;
+    btn.innerHTML = 'Confirm & Pay <span class="btn-icon">→</span>';
+    alert('Something went wrong. Please try again or contact hello@staelfogarti.com for help.');
+  }
 }
 
 // ── Scroll reveal ──
