@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Session — Stael Fogarti | English & Portuguese Interpreter</title>
+<meta name="description" content="Book a session with Stael Fogarti. Professional English-Portuguese interpretation, translation, and language coaching. Secure online booking.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://staelfogarti.netlify.app/contact.html">
+<meta property="og:title" content="Book a Session — Stael Fogarti">
+<meta property="og:description" content="Book your English-Portuguese interpretation, translation, or coaching session. Secure online booking.">
+<meta property="og:image" content="https://staelfogarti.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Book a Session — Stael Fogarti">
+<meta name="twitter:image" content="https://staelfogarti.netlify.app/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FEFBF6;--bg-warm:#FFF9F2;--white:#FFFFFF;--blue:#5B8EC9;--blue-deep:#4A78B0;--blue-light:#A3C4E9;--blue-wash:#EBF2FA;--peach:#F2A07B;--peach-deep:#E08A60;--peach-wash:#FFF2EB;--lavender:#B8A9D4;--lavender-wash:#F5F1FB;--mint:#8FC5B5;--mint-deep:#6BAA97;--mint-wash:#EFF9F5;--dark:#2A2A3A;--text:#3D3D50;--text-muted:#7C7C96;--text-light:#A5A5BA;--border:#EDECF0;--radius-sm:12px;--radius-md:18px;--radius-lg:24px;--radius-xl:32px;--radius-pill:100px;--shadow-sm:0 2px 8px rgba(42,42,58,0.04);--shadow-md:0 8px 32px rgba(42,42,58,0.06);--shadow-lg:0 20px 48px rgba(42,42,58,0.08);--shadow-blue:0 8px 28px rgba(91,142,201,0.28)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.container{max-width:1140px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(254,251,246,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(237,236,240,0.6);transition:all 0.3s}
+.nav.scrolled{box-shadow:var(--shadow-sm)}
+.nav-logo{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:800;color:var(--dark);letter-spacing:-0.02em}
+.nav-logo span{color:var(--peach)}
+.nav-menu{display:flex;align-items:center;gap:8px}
+.nav-link{padding:8px 18px;border-radius:var(--radius-pill);font-size:0.9rem;font-weight:600;color:var(--text-muted);transition:all 0.25s}
+.nav-link:hover{color:var(--text);background:rgba(91,142,201,0.06)}
+.nav-link.active{color:var(--blue);background:var(--blue-wash)}
+.nav-cta{margin-left:8px;padding:10px 26px;background:var(--blue);color:var(--white)!important;border-radius:var(--radius-sm);font-size:0.9rem;font-weight:700;transition:all 0.3s;box-shadow:var(--shadow-blue)}
+.nav-cta:hover{background:var(--blue-deep);transform:translateY(-1px)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;width:32px;height:32px;position:relative}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--dark);border-radius:2px;position:absolute;left:5px;transition:all 0.3s}
+.nav-toggle span:nth-child(1){top:9px}
+.nav-toggle span:nth-child(2){top:15px}
+.nav-toggle span:nth-child(3){top:21px}
+
+/* PAGE HERO */
+.page-hero{padding:130px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.page-hero-shape{position:absolute;border-radius:50%;pointer-events:none}
+.phs-1{width:400px;height:400px;top:-100px;right:-80px;background:radial-gradient(circle,var(--mint-wash) 0%,transparent 70%);opacity:0.5}
+.phs-2{width:300px;height:300px;bottom:-60px;left:-60px;background:radial-gradient(circle,var(--peach-wash) 0%,transparent 70%);opacity:0.4}
+.page-hero-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.page-hero h1{font-family:'Fraunces',serif;font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:800;color:var(--dark);margin-bottom:14px;letter-spacing:-0.02em;line-height:1.15;opacity:0;animation:slideUp 0.8s ease forwards 0.2s}
+.page-hero h1 em{font-style:italic;color:var(--blue)}
+.page-hero p{font-size:1.05rem;color:var(--text-muted);line-height:1.75;max-width:480px;margin:0 auto;opacity:0;animation:slideUp 0.8s ease forwards 0.4s}
+
+/* BOOKING LAYOUT */
+.booking-section{padding:0 0 110px}
+.booking-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:start}
+
+/* FORM */
+.booking-form-card{background:var(--white);border-radius:var(--radius-xl);padding:44px 40px;box-shadow:var(--shadow-md);border:1.5px solid var(--border)}
+.form-step{display:none}
+.form-step.active{display:block;animation:fadeIn 0.4s ease}
+
+.step-indicator{display:flex;align-items:center;gap:8px;margin-bottom:36px}
+.step-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:800;border:2px solid var(--border);color:var(--text-light);transition:all 0.3s}
+.step-dot.active{background:var(--blue);border-color:var(--blue);color:var(--white)}
+.step-dot.done{background:var(--mint);border-color:var(--mint);color:var(--white)}
+.step-line{flex:1;height:2px;background:var(--border);border-radius:2px}
+.step-line.active{background:var(--blue)}
+.step-line.done{background:var(--mint)}
+
+.form-title{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:800;color:var(--dark);margin-bottom:6px}
+.form-subtitle{font-size:0.92rem;color:var(--text-muted);margin-bottom:28px;line-height:1.5}
+
+/* Service selection */
+.service-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.service-opt{padding:18px 16px;border-radius:var(--radius-md);border:2px solid var(--border);background:var(--bg);cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:12px}
+.service-opt:hover{border-color:var(--blue-light);background:var(--blue-wash)}
+.service-opt.selected{border-color:var(--blue);background:var(--blue-wash);box-shadow:0 0 0 3px rgba(91,142,201,0.15)}
+.so-icon{font-size:1.4rem;flex-shrink:0}
+.so-info h4{font-size:0.88rem;font-weight:700;color:var(--dark);margin-bottom:2px}
+.so-info p{font-size:0.78rem;color:var(--text-muted)}
+
+/* Date picker */
+.date-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.date-opt{padding:16px 12px;border-radius:var(--radius-md);border:2px solid var(--border);background:var(--bg);cursor:pointer;text-align:center;transition:all 0.25s}
+.date-opt:hover{border-color:var(--blue-light);background:var(--blue-wash)}
+.date-opt.selected{border-color:var(--blue);background:var(--blue-wash);box-shadow:0 0 0 3px rgba(91,142,201,0.15)}
+.date-opt .do-day{font-size:0.82rem;font-weight:700;color:var(--dark);margin-bottom:2px}
+.date-opt .do-date{font-size:0.78rem;color:var(--text-muted)}
+
+/* Time picker */
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.time-opt{padding:12px;border-radius:var(--radius-sm);border:2px solid var(--border);background:var(--bg);cursor:pointer;text-align:center;font-size:0.88rem;font-weight:700;color:var(--text);transition:all 0.25s}
+.time-opt:hover{border-color:var(--blue-light);background:var(--blue-wash)}
+.time-opt.selected{border-color:var(--blue);background:var(--blue-wash);color:var(--blue);box-shadow:0 0 0 3px rgba(91,142,201,0.15)}
+
+/* Form fields */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-row.full{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:0.85rem;font-weight:700;color:var(--dark)}
+.form-input{padding:13px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:0.92rem;color:var(--text);background:var(--bg);outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:var(--blue)}
+.form-input::placeholder{color:var(--text-light)}
+textarea.form-input{resize:vertical;min-height:80px}
+
+/* Buttons */
+.form-btns{display:flex;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--radius-md);font-family:'Nunito',sans-serif;font-weight:700;font-size:0.95rem;border:none;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.btn-primary{background:var(--blue);color:var(--white);box-shadow:var(--shadow-blue)}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-2px)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.btn-ghost{background:transparent;color:var(--text-muted);padding:14px 20px}
+.btn-ghost:hover{color:var(--text)}
+.btn-icon{font-size:1.1rem}
+
+/* Order summary sidebar */
+.order-summary{position:sticky;top:96px}
+.os-card{background:var(--white);border-radius:var(--radius-xl);padding:36px 32px;box-shadow:var(--shadow-md);border:1.5px solid var(--border)}
+.os-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:800;color:var(--dark);margin-bottom:24px}
+.os-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1.5px solid var(--border)}
+.os-row:last-child{border-bottom:none}
+.os-label{font-size:0.88rem;color:var(--text-muted)}
+.os-value{font-size:0.9rem;font-weight:700;color:var(--dark)}
+.os-value.empty{color:var(--text-light);font-weight:500;font-style:italic}
+.os-total{margin-top:16px;padding-top:16px;border-top:2px solid var(--dark);display:flex;justify-content:space-between;align-items:center}
+.os-total-label{font-size:1rem;font-weight:800;color:var(--dark)}
+.os-total-price{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:800;color:var(--blue)}
+
+.os-trust{margin-top:28px;padding:20px;background:var(--mint-wash);border-radius:var(--radius-md);text-align:center}
+.os-trust p{font-size:0.82rem;color:var(--mint-deep);font-weight:600;line-height:1.5}
+.os-trust span{display:block;font-size:1.2rem;margin-bottom:6px}
+
+/* Confirmation */
+.confirm-screen{text-align:center;padding:40px 20px}
+.confirm-icon{font-size:3.5rem;margin-bottom:20px}
+.confirm-screen h2{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:12px}
+.confirm-screen p{font-size:1rem;color:var(--text-muted);line-height:1.7;max-width:400px;margin:0 auto 28px}
+.confirm-details{background:var(--bg);border-radius:var(--radius-md);padding:24px;text-align:left;margin-bottom:28px;max-width:400px;margin-left:auto;margin-right:auto}
+.cd-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
+.cd-row:last-child{border-bottom:none}
+.cd-label{font-size:0.85rem;color:var(--text-muted)}
+.cd-value{font-size:0.88rem;font-weight:700;color:var(--dark)}
+
+/* Contact info section */
+.contact-info-section{padding:80px 0 110px}
+.ci-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ci-card{background:var(--white);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;border:1.5px solid var(--border);transition:all 0.3s}
+.ci-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--blue-light)}
+.ci-icon{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:1.5rem}
+.ci-card h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--dark);margin-bottom:8px}
+.ci-card p{font-size:0.9rem;color:var(--text-muted);line-height:1.6}
+.ci-card a{color:var(--blue);font-weight:700;transition:color 0.2s}
+.ci-card a:hover{color:var(--blue-deep)}
+
+/* FOOTER */
+.footer{padding:60px 0 40px;border-top:1.5px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .nav-logo{margin-bottom:14px;display:inline-block}
+.footer-brand p{font-size:0.9rem;color:var(--text-muted);line-height:1.7;max-width:280px;margin-bottom:20px}
+.footer-social{display:flex;gap:10px}
+.social-link{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--blue-wash);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.3s;color:var(--blue)}
+.social-link:hover{background:var(--blue);color:white;transform:translateY(-2px)}
+.footer-col h4{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:18px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links a{font-size:0.9rem;color:var(--text-muted);transition:color 0.25s}
+.footer-links a:hover{color:var(--blue)}
+.footer-bottom{padding-top:32px;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:0.85rem;color:var(--text-light)}
+
+/* ANIMATIONS */
+@keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}.reveal-delay-2{transition-delay:0.2s}.reveal-delay-3{transition-delay:0.3s}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav{padding:0 24px;height:64px}
+  .nav-menu{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);padding:16px 24px 24px;flex-direction:column;border-bottom:1.5px solid var(--border);box-shadow:var(--shadow-md)}
+  .nav-menu.open{display:flex}
+  .nav-toggle{display:block}
+  .nav-cta{margin-left:0;width:100%;text-align:center;justify-content:center}
+  .booking-grid{grid-template-columns:1fr}
+  .order-summary{position:static}
+  .service-options{grid-template-columns:1fr}
+  .date-grid{grid-template-columns:repeat(2,1fr)}
+  .time-grid{grid-template-columns:repeat(3,1fr)}
+  .form-row{grid-template-columns:1fr}
+  .ci-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">stael<span>.</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <div class="nav-menu" id="navMenu">
+    <a href="about.html" class="nav-link">About</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="index.html#process" class="nav-link">How It Works</a>
+    <a href="index.html#faq" class="nav-link">FAQ</a>
+    <a href="contact.html" class="nav-link nav-cta active">Book a Session</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-shape phs-1"></div>
+  <div class="page-hero-shape phs-2"></div>
+  <div class="page-hero-inner">
+    <h1>Book your <em>session</em></h1>
+    <p>Choose a service, pick a time, and you're all set. Simple, secure, and confirmed instantly.</p>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section class="booking-section">
+  <div class="container">
+    <div class="booking-grid">
+
+      <!-- Form Card -->
+      <div class="booking-form-card" id="formCard">
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+          <div class="step-dot active" id="sd1">1</div>
+          <div class="step-line" id="sl1"></div>
+          <div class="step-dot" id="sd2">2</div>
+          <div class="step-line" id="sl2"></div>
+          <div class="step-dot" id="sd3">3</div>
+          <div class="step-line" id="sl3"></div>
+          <div class="step-dot" id="sd4">4</div>
+        </div>
+
+        <!-- Step 1: Service -->
+        <div class="form-step active" id="step1">
+          <div class="form-title">Choose a service</div>
+          <div class="form-subtitle">What do you need help with?</div>
+          <div class="service-options" id="serviceOptions">
+            <div class="service-opt" data-service="Live Interpretation" data-price="65" data-unit="hr" onclick="selectService(this)">
+              <span class="so-icon">🎙️</span>
+              <div class="so-info"><h4>Live Interpretation</h4><p>$65/hr</p></div>
+            </div>
+            <div class="service-opt" data-service="Document Translation" data-price="40" data-unit="page" onclick="selectService(this)">
+              <span class="so-icon">📋</span>
+              <div class="so-info"><h4>Document Translation</h4><p>$40/page</p></div>
+            </div>
+            <div class="service-opt" data-service="Virtual Session" data-price="55" data-unit="hr" onclick="selectService(this)">
+              <span class="so-icon">💻</span>
+              <div class="so-info"><h4>Virtual Session</h4><p>$55/hr</p></div>
+            </div>
+            <div class="service-opt" data-service="Medical Interpretation" data-price="75" data-unit="hr" onclick="selectService(this)">
+              <span class="so-icon">🏥</span>
+              <div class="so-info"><h4>Medical Interpretation</h4><p>$75/hr</p></div>
+            </div>
+            <div class="service-opt" data-service="Legal Interpretation" data-price="85" data-unit="hr" onclick="selectService(this)">
+              <span class="so-icon">⚖️</span>
+              <div class="so-info"><h4>Legal Interpretation</h4><p>$85/hr</p></div>
+            </div>
+            <div class="service-opt" data-service="Language Coaching" data-price="50" data-unit="session" onclick="selectService(this)">
+              <span class="so-icon">📚</span>
+              <div class="so-info"><h4>Language Coaching</h4><p>$50/session</p></div>
+            </div>
+          </div>
+          <div class="form-btns">
+            <button class="btn btn-primary" id="btn1" disabled onclick="goStep(2)">Continue <span class="btn-icon">→</span></button>
+          </div>
+        </div>
+
+        <!-- Step 2: Date & Time -->
+        <div class="form-step" id="step2">
+          <div class="form-title">Pick a date</div>
+          <div class="form-subtitle">Select an available date for your session.</div>
+          <div class="date-grid" id="dateGrid"></div>
+
+          <div style="margin-top:28px">
+            <div class="form-title" style="font-size:1.15rem">Pick a time</div>
+            <div class="form-subtitle">All times are Eastern (ET).</div>
+            <div class="time-grid" id="timeGrid">
+              <div class="time-opt" onclick="selectTime(this)">9:00 AM</div>
+              <div class="time-opt" onclick="selectTime(this)">10:00 AM</div>
+              <div class="time-opt" onclick="selectTime(this)">11:00 AM</div>
+              <div class="time-opt" onclick="selectTime(this)">12:00 PM</div>
+              <div class="time-opt" onclick="selectTime(this)">1:00 PM</div>
+              <div class="time-opt" onclick="selectTime(this)">2:00 PM</div>
+              <div class="time-opt" onclick="selectTime(this)">3:00 PM</div>
+              <div class="time-opt" onclick="selectTime(this)">4:00 PM</div>
+            </div>
+          </div>
+
+          <div class="form-btns">
+            <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+            <button class="btn btn-primary" id="btn2" disabled onclick="goStep(3)">Continue <span class="btn-icon">→</span></button>
+          </div>
+        </div>
+
+        <!-- Step 3: Your Info -->
+        <div class="form-step" id="step3">
+          <div class="form-title">Your information</div>
+          <div class="form-subtitle">Tell us a bit about yourself so Stael can prepare for your session.</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name *</label>
+              <input type="text" class="form-input" id="fname" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name *</label>
+              <input type="text" class="form-input" id="lname" placeholder="Doe" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" class="form-input" id="email" placeholder="jane@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-input" id="phone" placeholder="(555) 555-5555">
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label class="form-label">Notes for Stael (optional)</label>
+              <textarea class="form-input" id="notes" placeholder="Any details about your session, special requirements, or questions..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-btns">
+            <button class="btn btn-ghost" onclick="goStep(2)">← Back</button>
+            <button class="btn btn-primary" id="btn3" onclick="goStep(4)">Review Booking <span class="btn-icon">→</span></button>
+          </div>
+        </div>
+
+        <!-- Step 4: Review & Pay -->
+        <div class="form-step" id="step4">
+          <div class="form-title">Review & confirm</div>
+          <div class="form-subtitle">Double-check everything looks good before submitting.</div>
+
+          <div class="confirm-details" id="reviewDetails"></div>
+
+          <div class="form-btns" style="justify-content:center">
+            <button class="btn btn-ghost" onclick="goStep(3)">← Back</button>
+            <button class="btn btn-primary" id="btnPay" onclick="submitBooking()" style="padding:16px 48px;font-size:1.05rem">
+              Confirm & Pay <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirmation Screen -->
+        <div class="form-step" id="stepDone">
+          <div class="confirm-screen">
+            <div class="confirm-icon">🎉</div>
+            <h2>You're all set!</h2>
+            <p>Your session has been booked. Stael will send you a confirmation email with all the details and a calendar invite.</p>
+            <div class="confirm-details" id="confirmDetails"></div>
+            <a href="index.html" class="btn btn-primary">Back to Home</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <div class="os-card">
+          <div class="os-title">Booking Summary</div>
+
+          <div class="os-row">
+            <span class="os-label">Service</span>
+            <span class="os-value" id="osService"><span class="empty">Select a service</span></span>
+          </div>
+          <div class="os-row">
+            <span class="os-label">Date</span>
+            <span class="os-value" id="osDate"><span class="empty">—</span></span>
+          </div>
+          <div class="os-row">
+            <span class="os-label">Time</span>
+            <span class="os-value" id="osTime"><span class="empty">—</span></span>
+          </div>
+          <div class="os-row">
+            <span class="os-label">Name</span>
+            <span class="os-value" id="osName"><span class="empty">—</span></span>
+          </div>
+
+          <div class="os-total">
+            <span class="os-total-label">Total</span>
+            <span class="os-total-price" id="osPrice">$0</span>
+          </div>
+        </div>
+
+        <div class="os-trust" style="margin-top:20px">
+          <span>🔒</span>
+          <p>Secure payment powered by Stripe. Your information is encrypted and protected.</p>
+        </div>
+
+        <div class="os-trust" style="margin-top:12px;background:var(--blue-wash)">
+          <span>📅</span>
+          <p>Free cancellation up to 24 hours before your session.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT INFO -->
+<section class="contact-info-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px">
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.8rem,3vw,2.2rem);font-weight:800;color:var(--dark);margin-bottom:10px">Prefer to reach out directly?</h2>
+      <p style="font-size:1rem;color:var(--text-muted)">No pressure — contact Stael however works best for you.</p>
+    </div>
+    <div class="ci-grid">
+      <div class="ci-card reveal reveal-delay-1">
+        <div class="ci-icon" style="background:var(--blue-wash)">📧</div>
+        <h3>Email</h3>
+        <p><a href="mailto:hello@staelfogarti.com">hello@staelfogarti.com</a></p>
+        <p style="margin-top:6px;font-size:0.82rem">Typically replies within a few hours</p>
+      </div>
+      <div class="ci-card reveal reveal-delay-2">
+        <div class="ci-icon" style="background:var(--peach-wash)">📱</div>
+        <h3>Phone</h3>
+        <p><a href="tel:+1234567890">(XXX) XXX-XXXX</a></p>
+        <p style="margin-top:6px;font-size:0.82rem">Mon–Fri, 9AM–5PM ET</p>
+      </div>
+      <div class="ci-card reveal reveal-delay-3">
+        <div class="ci-icon" style="background:var(--mint-wash)">📍</div>
+        <h3>Location</h3>
+        <p>Orlando, Florida</p>
+        <p style="margin-top:6px;font-size:0.82rem">In-person & virtual sessions available</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">stael<span>.</span></a>
+        <p>Professional English–Portuguese interpretation, translation, and language teaching. Connecting people, one conversation at a time.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">ig</a>
+          <a href="#" class="social-link">in</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="services.html">Live Interpretation</a></li><li><a href="services.html">Document Translation</a></li><li><a href="services.html">Virtual Sessions</a></li><li><a href="services.html">Medical Interpretation</a></li><li><a href="services.html">Legal Interpretation</a></li><li><a href="services.html">Language Coaching</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="index.html#process">How It Works</a></li><li><a href="index.html#testimonials">Testimonials</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="footer-links"><li><a href="mailto:hello@staelfogarti.com">hello@staelfogarti.com</a></li><li><a href="tel:+1234567890">(XXX) XXX-XXXX</a></li><li><a href="#">Orlando, FL</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stael Fogarti. All rights reserved.</p>
+      <p><a href="#" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="#" style="color:var(--text-light)">Terms of Service</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<script>
+fetch("chatbot.html").then(r=>r.text()).then(html=>{const d=document.createElement("div");d.innerHTML=html;document.body.appendChild(d);const scripts=d.querySelectorAll("script");scripts.forEach(s=>{const ns=document.createElement("script");ns.textContent=s.textContent;document.body.appendChild(ns);});});
+</script>
+
+<script>
+// ── State ──
+const booking = { service: null, price: 0, unit: '', date: null, dateDisplay: '', time: null, fname: '', lname: '', email: '', phone: '', notes: '' };
+
+// ── Nav ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+const toggle = document.getElementById('navToggle');
+const menu = document.getElementById('navMenu');
+toggle.addEventListener('click', () => {
+  menu.classList.toggle('open');
+  const s = toggle.querySelectorAll('span');
+  if (menu.classList.contains('open')) { s[0].style.transform='rotate(45deg) translate(4px,4px)'; s[1].style.opacity='0'; s[2].style.transform='rotate(-45deg) translate(4px,-4px)'; }
+  else { s[0].style.transform='none'; s[1].style.opacity='1'; s[2].style.transform='none'; }
+});
+
+// ── Generate dates ──
+function buildDates() {
+  const grid = document.getElementById('dateGrid');
+  const now = new Date();
+  let d = new Date(now); d.setDate(d.getDate() + 1);
+  let count = 0;
+  while (count < 6) {
+    if (d.getDay() !== 0) {
+      const iso = d.toISOString();
+      const dayName = d.toLocaleDateString('en-US', { weekday: 'short' });
+      const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const el = document.createElement('div');
+      el.className = 'date-opt';
+      el.dataset.date = iso;
+      el.dataset.display = `${dayName}, ${dateStr}`;
+      el.innerHTML = `<div class="do-day">${dayName}</div><div class="do-date">${dateStr}</div>`;
+      el.onclick = () => selectDate(el);
+      grid.appendChild(el);
+      count++;
+    }
+    d.setDate(d.getDate() + 1);
+  }
+}
+buildDates();
+
+// ── Selections ──
+function selectService(el) {
+  document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  booking.service = el.dataset.service;
+  booking.price = parseInt(el.dataset.price);
+  booking.unit = el.dataset.unit;
+  document.getElementById('btn1').disabled = false;
+  updateSummary();
+}
+
+function selectDate(el) {
+  document.querySelectorAll('.date-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  booking.date = el.dataset.date;
+  booking.dateDisplay = el.dataset.display;
+  checkStep2();
+  updateSummary();
+}
+
+function selectTime(el) {
+  document.querySelectorAll('.time-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  booking.time = el.textContent;
+  checkStep2();
+  updateSummary();
+}
+
+function checkStep2() {
+  document.getElementById('btn2').disabled = !(booking.date && booking.time);
+}
+
+// ── Steps ──
+function goStep(n) {
+  // Collect info from step 3
+  if (n === 4) {
+    booking.fname = document.getElementById('fname').value;
+    booking.lname = document.getElementById('lname').value;
+    booking.email = document.getElementById('email').value;
+    booking.phone = document.getElementById('phone').value;
+    booking.notes = document.getElementById('notes').value;
+    if (!booking.fname || !booking.lname || !booking.email) {
+      alert('Please fill in your name and email.');
+      return;
+    }
+    updateSummary();
+    buildReview();
+  }
+
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+
+  // Update step indicators
+  for (let i = 1; i <= 4; i++) {
+    const dot = document.getElementById('sd' + i);
+    const line = i < 4 ? document.getElementById('sl' + i) : null;
+    dot.classList.remove('active', 'done');
+    if (line) line.classList.remove('active', 'done');
+    if (i < n) { dot.classList.add('done'); dot.innerHTML = '✓'; if (line) line.classList.add('done'); }
+    else if (i === n) { dot.classList.add('active'); dot.innerHTML = i; if (line) line.classList.add('active'); }
+    else { dot.innerHTML = i; }
+  }
+
+  window.scrollTo({ top: document.getElementById('formCard').offsetTop - 100, behavior: 'smooth' });
+}
+
+function updateSummary() {
+  document.getElementById('osService').innerHTML = booking.service || '<span class="empty">Select a service</span>';
+  document.getElementById('osDate').innerHTML = booking.dateDisplay || '<span class="empty">—</span>';
+  document.getElementById('osTime').innerHTML = booking.time || '<span class="empty">—</span>';
+  const name = (booking.fname && booking.lname) ? `${booking.fname} ${booking.lname}` : '';
+  document.getElementById('osName').innerHTML = name || '<span class="empty">—</span>';
+  document.getElementById('osPrice').textContent = booking.price ? `$${booking.price}` : '$0';
+}
+
+function buildReview() {
+  const d = document.getElementById('reviewDetails');
+  d.innerHTML = `
+    <div class="cd-row"><span class="cd-label">Service</span><span class="cd-value">${booking.service}</span></div>
+    <div class="cd-row"><span class="cd-label">Date</span><span class="cd-value">${booking.dateDisplay}</span></div>
+    <div class="cd-row"><span class="cd-label">Time</span><span class="cd-value">${booking.time} ET</span></div>
+    <div class="cd-row"><span class="cd-label">Name</span><span class="cd-value">${booking.fname} ${booking.lname}</span></div>
+    <div class="cd-row"><span class="cd-label">Email</span><span class="cd-value">${booking.email}</span></div>
+    ${booking.phone ? `<div class="cd-row"><span class="cd-label">Phone</span><span class="cd-value">${booking.phone}</span></div>` : ''}
+    <div class="cd-row" style="border:none;padding-top:12px;margin-top:8px;border-top:2px solid var(--dark)"><span class="cd-label" style="font-weight:800;color:var(--dark)">Total</span><span class="cd-value" style="font-size:1.1rem;color:var(--blue)">$${booking.price}</span></div>
+  `;
+}
+
+function submitBooking() {
+  // TODO: Replace with Stripe Checkout session creation
+  // This will call your Netlify function which creates a Stripe Checkout session
+  // with application_fee_amount: 2000 ($20 commission)
+  console.log('BOOKING:', JSON.stringify(booking));
+
+  // Show confirmation
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('stepDone').classList.add('active');
+
+  document.getElementById('confirmDetails').innerHTML = `
+    <div class="cd-row"><span class="cd-label">Service</span><span class="cd-value">${booking.service}</span></div>
+    <div class="cd-row"><span class="cd-label">Date</span><span class="cd-value">${booking.dateDisplay}</span></div>
+    <div class="cd-row"><span class="cd-label">Time</span><span class="cd-value">${booking.time} ET</span></div>
+    <div class="cd-row"><span class="cd-label">Confirmation sent to</span><span class="cd-value">${booking.email}</span></div>
+  `;
+
+  // Hide step indicator
+  document.querySelector('.step-indicator').style.display = 'none';
+}
+
+// ── Scroll reveal ──
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
