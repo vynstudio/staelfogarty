@@ -42,6 +42,30 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   .success-trust{flex-direction:column;align-items:center;gap:10px}
 }
 </style>
+<!-- Tracking -->
+<script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
+<script>
+// Fire purchase event after tracking loads
+setTimeout(() => { if (window.sfTrack) sfTrack.purchase('Session Booking', 0); }, 2000);
+
+// Send booking notification email
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  if (sessionId) {
+    // Retrieve booking data from sessionStorage (saved before Stripe redirect)
+    const booking = JSON.parse(sessionStorage.getItem('sf_booking') || '{}');
+    if (booking.service) {
+      fetch('/.netlify/functions/send-notification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...booking, sessionId }),
+      }).then(r => r.json()).then(d => console.log('Notification sent:', d)).catch(e => console.error('Notification error:', e));
+      sessionStorage.removeItem('sf_booking');
+    }
+  }
+})();
+</script>
 </head>
 <body>
 

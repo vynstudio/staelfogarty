@@ -637,6 +637,8 @@ a { text-decoration: none; color: inherit; }
   .about-stats-row { grid-template-columns: 1fr; }
 }
 </style>
+<!-- Tracking -->
+<script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
 

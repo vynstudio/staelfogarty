@@ -196,6 +196,8 @@ textarea.form-input{resize:vertical;min-height:80px}
   .footer-bottom{flex-direction:column;gap:12px;text-align:center}
 }
 </style>
+<!-- Tracking -->
+<script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
 
@@ -460,7 +462,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Stael Fogarti. All rights reserved.</p>
-      <p><a href="#" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="#" style="color:var(--text-light)">Terms of Service</a></p>
+      <p><a href="privacy.html" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="terms.html" style="color:var(--text-light)">Terms of Service</a></p>
     </div>
   </div>
 </footer>
@@ -520,6 +522,7 @@ function selectService(el) {
   booking.unit = el.dataset.unit;
   document.getElementById('btn1').disabled = false;
   updateSummary();
+  if (window.sfTrack) sfTrack.serviceSelected(booking.service);
 }
 
 function selectDate(el) {
@@ -562,6 +565,10 @@ function goStep(n) {
 
   document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
   document.getElementById('step' + n).classList.add('active');
+
+  // Track funnel events
+  if (n === 3 && window.sfTrack) sfTrack.lead(booking.service);
+  if (n === 4 && window.sfTrack) sfTrack.initiateCheckout(booking.service, booking.price);
 
   // Update step indicators
   for (let i = 1; i <= 4; i++) {
@@ -625,6 +632,18 @@ async function submitBooking() {
     const data = await response.json();
 
     if (data.url) {
+      // Save booking data for the success page to send notification
+      sessionStorage.setItem('sf_booking', JSON.stringify({
+        service: booking.service,
+        price: booking.price,
+        date: booking.dateDisplay,
+        time: booking.time,
+        fname: booking.fname,
+        lname: booking.lname,
+        email: booking.email,
+        phone: booking.phone,
+        notes: booking.notes,
+      }));
       // Redirect to Stripe Checkout
       window.location.href = data.url;
     } else {

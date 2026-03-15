@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://staelfogarti.netlify.app/sitemap.xml

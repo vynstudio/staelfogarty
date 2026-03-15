@@ -122,6 +122,8 @@ a{text-decoration:none;color:inherit}
   .footer-bottom{flex-direction:column;gap:12px;text-align:center}
 }
 </style>
+<!-- Tracking -->
+<script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
 
@@ -151,7 +153,7 @@ a{text-decoration:none;color:inherit}
     <div class="blog-grid">
 
       <!-- Featured Post -->
-      <a class="blog-featured reveal" href="#">
+      <a class="blog-featured reveal" href="blog/why-brazilians-orlando-need-interpreter.html">
         <div class="bf-img">🌎</div>
         <div class="bf-body">
           <span class="blog-tag bt-blue">Featured</span>
@@ -165,7 +167,7 @@ a{text-decoration:none;color:inherit}
       </a>
 
       <!-- Post 2 -->
-      <a class="blog-card reveal reveal-delay-1" href="#">
+      <a class="blog-card reveal reveal-delay-1" href="blog/why-brazilians-orlando-need-interpreter.html">
         <div class="blog-img bi-peach">📋</div>
         <div class="blog-body">
           <span class="blog-tag bt-peach">Translation</span>
@@ -179,7 +181,7 @@ a{text-decoration:none;color:inherit}
       </a>
 
       <!-- Post 3 -->
-      <a class="blog-card reveal reveal-delay-2" href="#">
+      <a class="blog-card reveal reveal-delay-2" href="blog/documents-translated-uscis.html">
         <div class="blog-img bi-mint">💻</div>
         <div class="blog-body">
           <span class="blog-tag bt-mint">Virtual</span>
@@ -193,7 +195,7 @@ a{text-decoration:none;color:inherit}
       </a>
 
       <!-- Post 4 -->
-      <a class="blog-card reveal reveal-delay-3" href="#">
+      <a class="blog-card reveal reveal-delay-3" href="blog/how-virtual-interpretation-works.html">
         <div class="blog-img bi-lav">🏥</div>
         <div class="blog-body">
           <span class="blog-tag bt-lav">Medical</span>
@@ -207,7 +209,7 @@ a{text-decoration:none;color:inherit}
       </a>
 
       <!-- Post 5 -->
-      <a class="blog-card reveal reveal-delay-1" href="#">
+      <a class="blog-card reveal reveal-delay-1" href="blog/medical-appointment-interpreter-tips.html">
         <div class="blog-img bi-blue">⚖️</div>
         <div class="blog-body">
           <span class="blog-tag bt-blue">Legal</span>
@@ -221,7 +223,7 @@ a{text-decoration:none;color:inherit}
       </a>
 
       <!-- Post 6 -->
-      <a class="blog-card reveal reveal-delay-2" href="#">
+      <a class="blog-card reveal reveal-delay-2" href="blog/legal-rights-interpreter.html">
         <div class="blog-img bi-peach">📚</div>
         <div class="blog-body">
           <span class="blog-tag bt-peach">Language</span>
@@ -235,7 +237,7 @@ a{text-decoration:none;color:inherit}
       </a>
 
       <!-- Post 7 -->
-      <a class="blog-card reveal reveal-delay-3" href="#">
+      <a class="blog-card reveal reveal-delay-3" href="blog/portuguese-phrases-english-speakers.html">
         <div class="blog-img bi-mint">🤝</div>
         <div class="blog-body">
           <span class="blog-tag bt-mint">Business</span>
@@ -271,7 +273,7 @@ a{text-decoration:none;color:inherit}
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Stael Fogarti. All rights reserved.</p>
-      <p><a href="#" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="#" style="color:var(--text-light)">Terms of Service</a></p>
+      <p><a href="privacy.html" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="terms.html" style="color:var(--text-light)">Terms of Service</a></p>
     </div>
   </div>
 </footer>
