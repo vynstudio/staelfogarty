@@ -206,7 +206,7 @@ textarea.form-input{resize:vertical;min-height:80px}
   <div class="nav-menu" id="navMenu">
     <a href="about.html" class="nav-link">About</a>
     <a href="services.html" class="nav-link">Services</a>
-    <a href="index.html#process" class="nav-link">How It Works</a>
+    <a href="blog.html" class="nav-link">Blog</a>
     <a href="index.html#faq" class="nav-link">FAQ</a>
     <a href="contact.html" class="nav-link nav-cta active">Book a Session</a>
   </div>
@@ -644,6 +644,21 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 revealEls.forEach(el => observer.observe(el));
+
+// ── Auto-select service from URL param ──
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const svc = params.get('service');
+  if (svc) {
+    const opts = document.querySelectorAll('.service-opt');
+    opts.forEach(el => {
+      if (el.dataset.service.toLowerCase() === svc.toLowerCase()) {
+        selectService(el);
+        setTimeout(() => goStep(2), 300);
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>

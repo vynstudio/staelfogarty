@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Stael Fogarti | English & Portuguese Interpreter</title>
+<meta name="description" content="Tips, insights, and stories about interpretation, translation, language learning, and the Portuguese-speaking community in the US.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://staelfogarti.netlify.app/blog.html">
+<meta property="og:title" content="Blog — Stael Fogarti">
+<meta property="og:description" content="Tips and insights about interpretation, translation, and language learning.">
+<meta property="og:image" content="https://staelfogarti.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FEFBF6;--white:#FFFFFF;--blue:#5B8EC9;--blue-deep:#4A78B0;--blue-light:#A3C4E9;--blue-wash:#EBF2FA;--peach:#F2A07B;--peach-deep:#E08A60;--peach-wash:#FFF2EB;--lavender:#B8A9D4;--lavender-wash:#F5F1FB;--mint:#8FC5B5;--mint-deep:#6BAA97;--mint-wash:#EFF9F5;--dark:#2A2A3A;--text:#3D3D50;--text-muted:#7C7C96;--text-light:#A5A5BA;--border:#EDECF0;--radius-sm:12px;--radius-md:18px;--radius-lg:24px;--radius-xl:32px;--radius-pill:100px;--shadow-sm:0 2px 8px rgba(42,42,58,0.04);--shadow-md:0 8px 32px rgba(42,42,58,0.06);--shadow-lg:0 20px 48px rgba(42,42,58,0.08);--shadow-blue:0 8px 28px rgba(91,142,201,0.28)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.container{max-width:1140px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(254,251,246,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(237,236,240,0.6);transition:all 0.3s}
+.nav.scrolled{box-shadow:var(--shadow-sm)}
+.nav-logo{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:800;color:var(--dark);letter-spacing:-0.02em}
+.nav-logo span{color:var(--peach)}
+.nav-menu{display:flex;align-items:center;gap:8px}
+.nav-link{padding:8px 18px;border-radius:var(--radius-pill);font-size:0.9rem;font-weight:600;color:var(--text-muted);transition:all 0.25s}
+.nav-link:hover{color:var(--text);background:rgba(91,142,201,0.06)}
+.nav-link.active{color:var(--blue);background:var(--blue-wash)}
+.nav-cta{margin-left:8px;padding:10px 26px;background:var(--blue);color:var(--white)!important;border-radius:var(--radius-sm);font-size:0.9rem;font-weight:700;transition:all 0.3s;box-shadow:var(--shadow-blue)}
+.nav-cta:hover{background:var(--blue-deep);transform:translateY(-1px)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;width:32px;height:32px;position:relative}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--dark);border-radius:2px;position:absolute;left:5px;transition:all 0.3s}
+.nav-toggle span:nth-child(1){top:9px}.nav-toggle span:nth-child(2){top:15px}.nav-toggle span:nth-child(3){top:21px}
+
+/* HERO */
+.page-hero{padding:140px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.page-hero-shape{position:absolute;border-radius:50%;pointer-events:none}
+.phs-1{width:400px;height:400px;top:-100px;right:-60px;background:radial-gradient(circle,var(--lavender-wash) 0%,transparent 70%);opacity:0.5}
+.phs-2{width:300px;height:300px;bottom:-60px;left:-60px;background:radial-gradient(circle,var(--peach-wash) 0%,transparent 70%);opacity:0.4}
+.page-hero-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.page-hero h1{font-family:'Fraunces',serif;font-size:clamp(2.4rem,5vw,3.4rem);font-weight:800;color:var(--dark);margin-bottom:16px;letter-spacing:-0.02em;line-height:1.15;opacity:0;animation:slideUp 0.8s ease forwards 0.2s}
+.page-hero h1 em{font-style:italic;color:var(--blue)}
+.page-hero p{font-size:1.1rem;color:var(--text-muted);line-height:1.75;max-width:500px;margin:0 auto;opacity:0;animation:slideUp 0.8s ease forwards 0.4s}
+
+/* BLOG GRID */
+.blog-section{padding:0 0 110px}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+
+.blog-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;border:1.5px solid var(--border);transition:all 0.35s;cursor:pointer;display:block;color:inherit;text-decoration:none}
+.blog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--blue-light)}
+
+.blog-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
+.blog-img::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.02)}
+
+.bi-blue{background:linear-gradient(135deg,var(--blue-wash) 0%,rgba(163,196,233,0.4) 100%)}
+.bi-peach{background:linear-gradient(135deg,var(--peach-wash) 0%,rgba(250,219,200,0.5) 100%)}
+.bi-mint{background:linear-gradient(135deg,var(--mint-wash) 0%,rgba(208,237,227,0.5) 100%)}
+.bi-lav{background:linear-gradient(135deg,var(--lavender-wash) 0%,rgba(230,223,243,0.5) 100%)}
+
+.blog-body{padding:28px 24px}
+.blog-tag{display:inline-block;padding:4px 14px;border-radius:var(--radius-pill);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px}
+.bt-blue{background:var(--blue-wash);color:var(--blue)}
+.bt-peach{background:var(--peach-wash);color:var(--peach-deep)}
+.bt-mint{background:var(--mint-wash);color:var(--mint-deep)}
+.bt-lav{background:var(--lavender-wash);color:var(--lavender)}
+
+.blog-card h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:var(--dark);margin-bottom:10px;line-height:1.35}
+.blog-card p{font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-bottom:16px}
+.blog-meta{display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;color:var(--text-light);font-weight:600}
+.blog-read{color:var(--blue);font-weight:700;display:flex;align-items:center;gap:4px;transition:gap 0.3s}
+.blog-card:hover .blog-read{gap:8px}
+
+/* Featured post */
+.blog-featured{grid-column:span 3;display:grid;grid-template-columns:1.2fr 1fr;gap:0;border-radius:var(--radius-xl);overflow:hidden;background:var(--white);border:1.5px solid var(--border);transition:all 0.35s;cursor:pointer}
+.blog-featured:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--blue-light)}
+.bf-img{min-height:320px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,var(--blue) 0%,#7BA4D4 50%,var(--lavender) 100%)}
+.bf-body{padding:48px 40px;display:flex;flex-direction:column;justify-content:center}
+.bf-body .blog-tag{margin-bottom:18px}
+.bf-body h3{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:800;color:var(--dark);margin-bottom:14px;line-height:1.3}
+.bf-body p{font-size:1rem;color:var(--text-muted);line-height:1.7;margin-bottom:24px}
+.bf-body .blog-meta{font-size:0.85rem}
+
+/* FOOTER */
+.footer{padding:60px 0 40px;border-top:1.5px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .nav-logo{margin-bottom:14px;display:inline-block}
+.footer-brand p{font-size:0.9rem;color:var(--text-muted);line-height:1.7;max-width:280px;margin-bottom:20px}
+.footer-social{display:flex;gap:10px}
+.social-link{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--blue-wash);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.3s;color:var(--blue)}
+.social-link:hover{background:var(--blue);color:white;transform:translateY(-2px)}
+.footer-col h4{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:18px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links a{font-size:0.9rem;color:var(--text-muted);transition:color 0.25s}
+.footer-links a:hover{color:var(--blue)}
+.footer-bottom{padding-top:32px;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:0.85rem;color:var(--text-light)}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}.reveal-delay-2{transition-delay:0.2s}.reveal-delay-3{transition-delay:0.3s}
+
+@keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  .nav{padding:0 24px;height:64px}
+  .nav-menu{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);padding:16px 24px 24px;flex-direction:column;border-bottom:1.5px solid var(--border);box-shadow:var(--shadow-md)}
+  .nav-menu.open{display:flex}
+  .nav-toggle{display:block}
+  .nav-cta{margin-left:0;width:100%;text-align:center;justify-content:center}
+  .blog-grid{grid-template-columns:1fr}
+  .blog-featured{grid-column:span 1;grid-template-columns:1fr}
+  .bf-img{min-height:200px}
+  .footer-grid{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">stael<span>.</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <div class="nav-menu" id="navMenu">
+    <a href="about.html" class="nav-link">About</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="blog.html" class="nav-link active">Blog</a>
+    <a href="index.html#faq" class="nav-link">FAQ</a>
+    <a href="contact.html" class="nav-link nav-cta">Book a Session</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-shape phs-1"></div>
+  <div class="page-hero-shape phs-2"></div>
+  <div class="page-hero-inner">
+    <h1>The <em>Blog</em></h1>
+    <p>Tips, insights, and stories about interpretation, translation, and the bilingual experience.</p>
+  </div>
+</section>
+
+<section class="blog-section">
+  <div class="container">
+    <div class="blog-grid">
+
+      <!-- Featured Post -->
+      <a class="blog-featured reveal" href="#">
+        <div class="bf-img">🌎</div>
+        <div class="bf-body">
+          <span class="blog-tag bt-blue">Featured</span>
+          <h3>Why Every Brazilian in Orlando Needs a Professional Interpreter</h3>
+          <p>Navigating the US healthcare system, legal proceedings, and business meetings without a professional interpreter can lead to costly mistakes. Here's why having a bilingual expert matters.</p>
+          <div class="blog-meta">
+            <span>March 2026 · 5 min read</span>
+            <span class="blog-read">Read more →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Post 2 -->
+      <a class="blog-card reveal reveal-delay-1" href="#">
+        <div class="blog-img bi-peach">📋</div>
+        <div class="blog-body">
+          <span class="blog-tag bt-peach">Translation</span>
+          <h3>What Documents Do You Need Translated for USCIS?</h3>
+          <p>A complete guide to which documents need certified translation for your immigration application.</p>
+          <div class="blog-meta">
+            <span>March 2026</span>
+            <span class="blog-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Post 3 -->
+      <a class="blog-card reveal reveal-delay-2" href="#">
+        <div class="blog-img bi-mint">💻</div>
+        <div class="blog-body">
+          <span class="blog-tag bt-mint">Virtual</span>
+          <h3>How Virtual Interpretation Works (And Why It's Just as Good)</h3>
+          <p>Everything you need to know about booking a remote interpretation session via Zoom or phone.</p>
+          <div class="blog-meta">
+            <span>March 2026</span>
+            <span class="blog-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Post 4 -->
+      <a class="blog-card reveal reveal-delay-3" href="#">
+        <div class="blog-img bi-lav">🏥</div>
+        <div class="blog-body">
+          <span class="blog-tag bt-lav">Medical</span>
+          <h3>5 Things to Know Before Your Medical Appointment with an Interpreter</h3>
+          <p>How to prepare for a doctor's visit when you'll be using a Portuguese interpreter.</p>
+          <div class="blog-meta">
+            <span>March 2026</span>
+            <span class="blog-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Post 5 -->
+      <a class="blog-card reveal reveal-delay-1" href="#">
+        <div class="blog-img bi-blue">⚖️</div>
+        <div class="blog-body">
+          <span class="blog-tag bt-blue">Legal</span>
+          <h3>Your Rights to an Interpreter in Legal Proceedings</h3>
+          <p>Understanding your legal right to interpretation services in court, depositions, and USCIS interviews.</p>
+          <div class="blog-meta">
+            <span>March 2026</span>
+            <span class="blog-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Post 6 -->
+      <a class="blog-card reveal reveal-delay-2" href="#">
+        <div class="blog-img bi-peach">📚</div>
+        <div class="blog-body">
+          <span class="blog-tag bt-peach">Language</span>
+          <h3>10 Portuguese Phrases Every English Speaker Should Know</h3>
+          <p>Starting your Portuguese journey? These everyday phrases will get you communicating right away.</p>
+          <div class="blog-meta">
+            <span>March 2026</span>
+            <span class="blog-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Post 7 -->
+      <a class="blog-card reveal reveal-delay-3" href="#">
+        <div class="blog-img bi-mint">🤝</div>
+        <div class="blog-body">
+          <span class="blog-tag bt-mint">Business</span>
+          <h3>Working with Brazilian Clients? Here's How to Bridge the Culture Gap</h3>
+          <p>Cultural tips for American businesses collaborating with Portuguese-speaking partners.</p>
+          <div class="blog-meta">
+            <span>March 2026</span>
+            <span class="blog-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">stael<span>.</span></a>
+        <p>Professional English–Portuguese interpretation, translation, and language teaching.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">ig</a>
+          <a href="#" class="social-link">in</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="services/live-interpretation.html">Live Interpretation</a></li><li><a href="services/document-translation.html">Document Translation</a></li><li><a href="services/virtual-sessions.html">Virtual Sessions</a></li><li><a href="services/medical-interpretation.html">Medical Interpretation</a></li><li><a href="services/legal-interpretation.html">Legal Interpretation</a></li><li><a href="services/language-coaching.html">Language Coaching</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="footer-links"><li><a href="mailto:hello@staelfogarti.com">hello@staelfogarti.com</a></li><li><a href="tel:+1234567890">(XXX) XXX-XXXX</a></li><li><a href="#">Orlando, FL</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stael Fogarti. All rights reserved.</p>
+      <p><a href="#" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="#" style="color:var(--text-light)">Terms of Service</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+fetch("chatbot.html").then(r=>r.text()).then(html=>{const d=document.createElement("div");d.innerHTML=html;document.body.appendChild(d);const scripts=d.querySelectorAll("script");scripts.forEach(s=>{const ns=document.createElement("script");ns.textContent=s.textContent;document.body.appendChild(ns);});});
+</script>
+<script>
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20));
+const toggle=document.getElementById('navToggle'),menu=document.getElementById('navMenu');
+toggle.addEventListener('click',()=>{menu.classList.toggle('open');const s=toggle.querySelectorAll('span');if(menu.classList.contains('open')){s[0].style.transform='rotate(45deg) translate(4px,4px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-4px)';}else{s[0].style.transform='none';s[1].style.opacity='1';s[2].style.transform='none';}});
+const revealEls=document.querySelectorAll('.reveal');const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});revealEls.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
