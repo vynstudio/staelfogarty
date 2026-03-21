@@ -1,15 +1,19 @@
-// Creates a Zoom meeting via Zoom API (Server-to-Server OAuth)
-// and sends confirmation emails with the link to both Stael and the client.
+// On every confirmed booking:
+// 1. Creates a Zoom meeting (virtual services only)
+// 2. Creates a Google Calendar event on Stael's calendar with attendees
+// 3. Sends confirmation emails via Gmail API
 //
 // Netlify env vars needed:
-//   ZOOM_ACCOUNT_ID        — from Zoom Marketplace app (Server-to-Server OAuth)
-//   ZOOM_CLIENT_ID         — from Zoom Marketplace app
-//   ZOOM_CLIENT_SECRET     — from Zoom Marketplace app
-//   ZOOM_USER_ID           — Stael's Zoom user ID or email (e.g. hello@staelfogarty.com)
-//   RESEND_API_KEY         — for sending confirmation emails (free tier at resend.com)
-//   STAEL_EMAIL            — hello@staelfogarty.com
+//   ZOOM_ACCOUNT_ID, ZOOM_CLIENT_ID, ZOOM_CLIENT_SECRET — Zoom Server-to-Server OAuth
+//   ZOOM_USER_ID        — Stael's Zoom email (e.g. hello@staelfogarty.com)
+//   GOOGLE_SERVICE_ACCOUNT_JSON — full JSON key file content (paste as one-line JSON string)
+//   GOOGLE_IMPERSONATE  — Stael's Google Workspace email (e.g. hello@staelfogarty.com)
+//   STAEL_EMAIL         — hello@staelfogarty.com
+
+const { google } = require('googleapis');
 
 const VIRTUAL_SERVICES = ['Virtual Session', 'Language Coaching'];
+const STAEL_EMAIL = process.env.STAEL_EMAIL || 'hello@staelfogarty.com';
 
 exports.handler = async (event) => {
   const headers = {
@@ -24,225 +28,225 @@ exports.handler = async (event) => {
   try {
     const data = JSON.parse(event.body);
     const { service, price, date, time, fname, lname, email, notes, sessionId } = data;
-    const clientName = `${fname} ${lname}`;
+    const clientName = `${fname} ${lname}`.trim();
     const isVirtual = VIRTUAL_SERVICES.includes(service);
 
     let zoomLink = null;
     let zoomMeetingId = null;
+    let calendarEventLink = null;
 
-    // ── Step 1: Create Zoom meeting (virtual services only) ──
+    // ── Step 1: Create Zoom meeting (virtual only) ──
     if (isVirtual && process.env.ZOOM_ACCOUNT_ID) {
       try {
-        // Get OAuth access token
         const tokenRes = await fetch(
           `https://zoom.us/oauth/token?grant_type=account_credentials&account_id=${process.env.ZOOM_ACCOUNT_ID}`,
           {
             method: 'POST',
             headers: {
-              'Authorization': 'Basic ' + Buffer.from(`${process.env.ZOOM_CLIENT_ID}:${process.env.ZOOM_CLIENT_SECRET}`).toString('base64'),
+              'Authorization': 'Basic ' + Buffer.from(
+                `${process.env.ZOOM_CLIENT_ID}:${process.env.ZOOM_CLIENT_SECRET}`
+              ).toString('base64'),
               'Content-Type': 'application/x-www-form-urlencoded',
             },
           }
         );
-        const tokenData = await tokenRes.json();
-        const accessToken = tokenData.access_token;
-
-        // Parse date/time into ISO format for Zoom
+        const { access_token } = await tokenRes.json();
         const startTime = parseDateTime(date, time);
-
-        // Determine duration from service
         const duration = service === 'Language Coaching' ? 60 : 90;
 
-        // Create the meeting
         const meetingRes = await fetch(
           `https://api.zoom.us/v2/users/${process.env.ZOOM_USER_ID || 'me'}/meetings`,
           {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${accessToken}`,
+              'Authorization': `Bearer ${access_token}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               topic: `${service} — ${clientName}`,
-              type: 2, // Scheduled meeting
+              type: 2,
               start_time: startTime,
-              duration: duration,
+              duration,
               timezone: 'America/New_York',
-              agenda: `${service} session with ${clientName}.\n${notes ? 'Notes: ' + notes : ''}`,
+              agenda: `${service} with ${clientName}${notes ? '. Notes: ' + notes : ''}`,
               settings: {
                 host_video: true,
                 participant_video: true,
-                join_before_host: false,
                 waiting_room: true,
-                auto_recording: 'none',
+                join_before_host: false,
               },
             }),
           }
         );
-
-        const meetingData = await meetingRes.json();
-        if (meetingData.join_url) {
-          zoomLink = meetingData.join_url;
-          zoomMeetingId = meetingData.id;
-          console.log('Zoom meeting created:', zoomMeetingId, zoomLink);
+        const meeting = await meetingRes.json();
+        if (meeting.join_url) {
+          zoomLink = meeting.join_url;
+          zoomMeetingId = meeting.id;
+          console.log('✓ Zoom meeting created:', zoomMeetingId);
         } else {
-          console.error('Zoom meeting creation failed:', JSON.stringify(meetingData));
+          console.error('Zoom error:', JSON.stringify(meeting));
         }
-      } catch (zoomErr) {
-        console.error('Zoom API error:', zoomErr.message);
-        // Don't fail the whole function — just log it
+      } catch (e) {
+        console.error('Zoom API error:', e.message);
       }
     }
 
-    // ── Step 2: Build Google Calendar link ──
-    const gcalLink = buildGoogleCalendarLink({
-      service, clientName, date, time,
-      zoomLink, notes, isVirtual,
-    });
-
-    // ── Step 3: Build email content ──
-    const zoomSection = zoomLink
-      ? `\nZOOM LINK: ${zoomLink}\nMeeting ID: ${zoomMeetingId}\n`
-      : isVirtual
-        ? '\nZoom link: Stael will send this before your session.\n'
-        : '';
-
-    const staelEmail = process.env.STAEL_EMAIL || 'hello@staelfogarty.com';
-
-    const staelBody = `
-Hi Stael,
-
-New booking confirmed and paid!
-
-SERVICE: ${service}
-CLIENT: ${clientName}
-EMAIL: ${email}
-DATE: ${date}
-TIME: ${time} ET
-PRICE: $${price}
-${zoomSection}
-NOTES: ${notes || 'None'}
-STRIPE SESSION: ${sessionId || 'N/A'}
-
-Add to Google Calendar: ${gcalLink}
-
-— staelfogarty.com
-    `.trim();
-
-    const clientBody = `
-Hi ${fname},
-
-Your session with Stael Fogarty is confirmed!
-
-SERVICE: ${service}
-DATE: ${date}
-TIME: ${time} ET
-PRICE: $${price}
-${zoomSection}
-${isVirtual && zoomLink ? 'Click the Zoom link above to join your session at the scheduled time.' : isVirtual ? 'Stael will send you a Zoom link before your session.' : 'Stael will meet you in person. She will confirm the location details with you.'}
-
-Add to your Google Calendar: ${gcalLink}
-
-CANCELLATION POLICY:
-- Free cancellation up to 24 hours before your session
-- Contact hello@staelfogarty.com to reschedule or cancel
-
-Thank you for booking with Stael Fogarty!
-
-— staelfogarty.com
-    `.trim();
-
-    // ── Step 4: Send emails via Resend ──
-    let emailsSent = false;
-    if (process.env.RESEND_API_KEY) {
+    // ── Step 2: Google Auth (Service Account) ──
+    let googleAuth = null;
+    if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
       try {
-        const { Resend } = require('resend');
-        const resend = new Resend(process.env.RESEND_API_KEY);
+        const saKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+        googleAuth = new google.auth.GoogleAuth({
+          credentials: saKey,
+          scopes: [
+            'https://www.googleapis.com/auth/calendar',
+            'https://www.googleapis.com/auth/gmail.send',
+          ],
+          clientOptions: {
+            subject: process.env.GOOGLE_IMPERSONATE || STAEL_EMAIL,
+          },
+        });
+      } catch (e) {
+        console.error('Google auth error:', e.message);
+      }
+    }
 
-        await resend.emails.send({
-          from: 'Stael Fogarty <noreply@staelfogarty.com>',
-          to: staelEmail,
-          subject: `New Booking: ${service} — ${clientName}`,
-          text: staelBody,
+    // ── Step 3: Create Google Calendar event ──
+    if (googleAuth) {
+      try {
+        const calendar = google.calendar({ version: 'v3', auth: googleAuth });
+        const startISO = parseDateTime(date, time);
+        const endISO = new Date(new Date(startISO).getTime() + 90 * 60000).toISOString();
+
+        const eventBody = {
+          summary: `${service} — ${clientName}`,
+          description: [
+            isVirtual && zoomLink ? `Zoom: ${zoomLink}` : isVirtual ? 'Zoom link to be added' : 'In-person session',
+            `Service: ${service}`,
+            `Price: $${price}`,
+            notes ? `Notes: ${notes}` : '',
+            `Stripe: ${sessionId || 'N/A'}`,
+          ].filter(Boolean).join('\n'),
+          start: { dateTime: startISO, timeZone: 'America/New_York' },
+          end:   { dateTime: endISO,   timeZone: 'America/New_York' },
+          attendees: [
+            { email: STAEL_EMAIL, displayName: 'Stael Fogarty', organizer: true },
+            { email, displayName: clientName },
+          ],
+          ...(zoomLink ? {
+            conferenceData: {
+              entryPoints: [{ entryPointType: 'video', uri: zoomLink, label: 'Join Zoom' }],
+              conferenceSolution: { name: 'Zoom', key: { type: 'addOn' } },
+            },
+          } : {}),
+          reminders: {
+            useDefault: false,
+            overrides: [
+              { method: 'email', minutes: 24 * 60 },
+              { method: 'popup', minutes: 30 },
+            ],
+          },
+          sendUpdates: 'all', // sends calendar invite emails to all attendees
+        };
+
+        const calEvent = await calendar.events.insert({
+          calendarId: 'primary',
+          requestBody: eventBody,
+          conferenceDataVersion: zoomLink ? 1 : 0,
+          sendUpdates: 'all',
         });
 
-        await resend.emails.send({
-          from: 'Stael Fogarty <noreply@staelfogarty.com>',
+        calendarEventLink = calEvent.data.htmlLink;
+        console.log('✓ Google Calendar event created:', calendarEventLink);
+      } catch (e) {
+        console.error('Google Calendar error:', e.message);
+      }
+    }
+
+    // ── Step 4: Send emails via Gmail API ──
+    let emailsSent = false;
+    if (googleAuth) {
+      try {
+        const gmail = google.gmail({ version: 'v1', auth: googleAuth });
+
+        const zoomSection = zoomLink
+          ? `\nZoom link: ${zoomLink}\nMeeting ID: ${zoomMeetingId}\n`
+          : isVirtual ? '\nZoom link: Stael will send this shortly before your session.\n' : '';
+
+        // Email to Stael
+        await sendEmail(gmail, {
+          from: `Stael Fogarty Site <${STAEL_EMAIL}>`,
+          to: STAEL_EMAIL,
+          subject: `New Booking: ${service} — ${clientName}`,
+          body: `Hi Stael,\n\nNew booking confirmed and paid!\n\nSERVICE: ${service}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${date}\nTIME: ${time} ET\nPRICE: $${price}${zoomSection}\nNOTES: ${notes || 'None'}\nSTRIPE: ${sessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar event: ' + calendarEventLink : ''}\n\n— staelfogarty.com`,
+        });
+
+        // Email to client
+        await sendEmail(gmail, {
+          from: `Stael Fogarty <${STAEL_EMAIL}>`,
           to: email,
           subject: `Your session is confirmed — ${service} with Stael Fogarty`,
-          text: clientBody,
+          body: `Hi ${fname},\n\nYour session with Stael is confirmed!\n\nSERVICE: ${service}\nDATE: ${date}\nTIME: ${time} ET\nPRICE: $${price}${zoomSection}\n${isVirtual && zoomLink ? 'Click the Zoom link above to join at the scheduled time.' : isVirtual ? 'Stael will send your Zoom link before the session.' : 'Stael will meet you in person and confirm the location details.'}\n\nCANCELLATION: Free cancellation up to 24 hours before your session.\nContact: hello@staelfogarty.com\n\nThank you for choosing Stael Fogarty!\n\n— staelfogarty.com`,
         });
 
         emailsSent = true;
-        console.log('Emails sent via Resend');
-      } catch (emailErr) {
-        console.error('Email error:', emailErr.message);
+        console.log('✓ Emails sent via Gmail');
+      } catch (e) {
+        console.error('Gmail error:', e.message);
       }
-    } else {
-      // Log for now
-      console.log('=== STAEL EMAIL ===\n', staelBody);
-      console.log('=== CLIENT EMAIL ===\n', clientBody);
     }
+
+    // Fallback Google Calendar link (clickable button on success page)
+    const gcalLink = buildGCalLink({ service, clientName, date, time, zoomLink, notes, isVirtual });
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({
-        success: true,
-        zoomLink,
-        zoomMeetingId,
-        gcalLink,
-        emailsSent,
-        isVirtual,
-      }),
+      body: JSON.stringify({ success: true, zoomLink, zoomMeetingId, calendarEventLink, gcalLink, emailsSent, isVirtual }),
     };
 
   } catch (err) {
     console.error('Function error:', err);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: err.message }),
-    };
+    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
   }
 };
 
 // ── Helpers ──
 
+async function sendEmail(gmail, { from, to, subject, body }) {
+  const raw = [
+    `From: ${from}`,
+    `To: ${to}`,
+    `Subject: ${subject}`,
+    `Content-Type: text/plain; charset=utf-8`,
+    '',
+    body,
+  ].join('\n');
+  const encoded = Buffer.from(raw).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  await gmail.users.messages.send({ userId: 'me', requestBody: { raw: encoded } });
+}
+
 function parseDateTime(dateStr, timeStr) {
-  // dateStr: "Tue, Mar 24" or "Tue, Mar 24, 2026"
-  // timeStr: "9:00 AM"
   try {
     const year = new Date().getFullYear();
-    const combined = `${dateStr.replace(/^[A-Za-z]+,\s*/, '')} ${year} ${timeStr}`;
-    const d = new Date(combined);
-    if (!isNaN(d)) return d.toISOString().replace('.000Z', 'Z');
+    const clean = dateStr.replace(/^[A-Za-z]+,\s*/, '');
+    const d = new Date(`${clean} ${year} ${timeStr}`);
+    if (!isNaN(d)) return d.toISOString();
   } catch (e) {}
   return new Date().toISOString();
 }
 
-function buildGoogleCalendarLink({ service, clientName, date, time, zoomLink, notes, isVirtual }) {
+function buildGCalLink({ service, clientName, date, time, zoomLink, isVirtual }) {
   try {
     const year = new Date().getFullYear();
-    const combined = `${date.replace(/^[A-Za-z]+,\s*/, '')} ${year} ${time}`;
-    const start = new Date(combined);
-    const end = new Date(start.getTime() + 60 * 60 * 1000);
+    const start = new Date(`${date.replace(/^[A-Za-z]+,\s*/, '')} ${year} ${time}`);
+    const end = new Date(start.getTime() + 60 * 60000);
     const fmt = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-
     const title = encodeURIComponent(`${service} — Stael Fogarty`);
-    const details = encodeURIComponent(
-      [
-        zoomLink ? `Zoom: ${zoomLink}` : isVirtual ? 'Zoom link to be sent by Stael' : 'In-person session',
-        `Client: ${clientName}`,
-        notes ? `Notes: ${notes}` : '',
-        'hello@staelfogarty.com',
-        'staelfogarty.com',
-      ].filter(Boolean).join('\n')
-    );
-    const location = encodeURIComponent(zoomLink || 'Orlando, FL');
-
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${details}&location=${location}`;
-  } catch (e) {
-    return 'https://calendar.google.com';
-  }
+    const details = encodeURIComponent([
+      zoomLink ? `Zoom: ${zoomLink}` : isVirtual ? 'Zoom link to be sent by Stael' : 'In-person session',
+      'hello@staelfogarty.com | staelfogarty.com',
+    ].join('\n'));
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${details}`;
+  } catch (e) { return 'https://calendar.google.com'; }
 }
