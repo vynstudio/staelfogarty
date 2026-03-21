@@ -51,19 +51,37 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 // Fire purchase event after tracking loads
 setTimeout(() => { if (window.sfTrack) sfTrack.purchase('Session Booking', 0); }, 2000);
 
-// Send booking notification + build Google Calendar link
+// Trigger Zoom meeting + send confirmation emails + build Google Calendar link
 (function() {
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get('session_id');
   const booking = JSON.parse(sessionStorage.getItem('sf_booking') || '{}');
 
   if (sessionId && booking.service) {
-    // Send notification
-    fetch('/.netlify/functions/send-notification', {
+    // Trigger Zoom + email via webhook-safe function
+    fetch('/.netlify/functions/create-zoom-meeting', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...booking, sessionId }),
-    }).then(r => r.json()).then(d => console.log('Notification sent:', d)).catch(e => console.error(e));
+    }).then(r => r.json()).then(result => {
+      console.log('Zoom + email result:', result);
+
+      // Show Zoom link if returned
+      if (result.zoomLink) {
+        const zoomDiv = document.getElementById('zoom-section');
+        if (zoomDiv) {
+          zoomDiv.style.display = 'block';
+          const link = document.getElementById('zoom-link');
+          if (link) link.href = result.zoomLink;
+        }
+      }
+
+      // Update Google Calendar link with Zoom details
+      if (result.gcalLink) {
+        const gcalBtn = document.getElementById('gcal-btn');
+        if (gcalBtn) gcalBtn.href = result.gcalLink;
+      }
+    }).catch(e => console.error('Zoom/email error:', e));
 
     // Populate details card
     const details = document.getElementById('details');
@@ -117,6 +135,13 @@ setTimeout(() => { if (window.sfTrack) sfTrack.purchase('Session Booking', 0); }
   </div>
 
   <a href="index.html" class="btn btn-primary" style="width:100%;justify-content:center;">Back to Home →</a>
+
+  <div id="zoom-section" style="display:none;margin-top:16px;background:var(--blue-wash);border:1.5px solid var(--blue-light);border-radius:var(--radius-md);padding:18px 22px;text-align:left;">
+    <p style="font-size:0.8rem;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Your Zoom link</p>
+    <a id="zoom-link" href="#" target="_blank" style="font-size:0.95rem;font-weight:700;color:var(--blue-deep);word-break:break-all;">Loading...</a>
+    <p style="font-size:0.78rem;color:var(--blue-deep);margin-top:6px;opacity:0.8;">This link has also been sent to your email. Keep it safe!</p>
+  </div>
+
   <a id="gcal-btn" href="#" target="_blank" class="btn btn-gcal" style="display:none;">
     <img src="https://www.google.com/favicon.ico" alt="Google"> Add to Google Calendar
   </a>

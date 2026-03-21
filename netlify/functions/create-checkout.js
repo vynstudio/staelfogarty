@@ -52,9 +52,12 @@ exports.handler = async (event) => {
       ],
       metadata: {
         service,
+        price: String(price),
+        unit,
         date,
         time,
-        client_name: `${fname} ${lname}`,
+        fname,
+        lname,
         client_email: email,
         client_phone: phone || '',
         notes: notes || '',
