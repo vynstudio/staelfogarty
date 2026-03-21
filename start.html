@@ -414,27 +414,126 @@ a { text-decoration: none; color: inherit; }
   </div>
 </footer>
 
+<div id="celebration" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(254,251,246,0.97); display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px;">
+  <div style="font-size:4rem; margin-bottom:16px;" id="cel-emoji">🎉</div>
+  <h2 style="font-family:'Fraunces',serif; font-size:2.2rem; font-weight:800; color:#2A2A3A; margin-bottom:12px; letter-spacing:-0.02em;">You're all set, Stael!</h2>
+  <p style="font-size:1.05rem; color:#7C7C96; max-width:420px; line-height:1.65; margin-bottom:32px;">Everything's checked off. We'll take it from here — your site is live, ads are ready, and clients are on their way. 🚀</p>
+  <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+    <a href="https://staelfogarty.com" style="padding:14px 28px; background:#5B8EC9; color:white; border-radius:100px; font-size:0.95rem; font-weight:800; box-shadow:0 8px 28px rgba(91,142,201,0.3);">Visit your site →</a>
+    <button onclick="closeCelebration()" style="padding:14px 28px; background:transparent; color:#7C7C96; border:1.5px solid #EDECF0; border-radius:100px; font-size:0.95rem; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif;">Back to checklist</button>
+  </div>
+  <canvas id="confetti-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:-1;"></canvas>
+</div>
+
 <script>
 const TOTAL = 10;
+const STORAGE_KEY = 'stael_checklist_v1';
+
 const state = { checked: Array(TOTAL).fill(false), notes: Array(TOTAL).fill('') };
 
-function toggle(i) {
-  state.checked[i] = !state.checked[i];
-  const item = document.getElementById('i' + i);
-  const cb = document.getElementById('cb' + i);
-  item.classList.toggle('done', state.checked[i]);
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.checked) state.checked = parsed.checked;
+      if (parsed.notes) state.notes = parsed.notes;
+    }
+  } catch(e) {}
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function restoreUI() {
+  for (let i = 0; i < TOTAL; i++) {
+    if (state.checked[i]) {
+      document.getElementById('i' + i).classList.add('done');
+    }
+    if (state.notes[i]) {
+      document.getElementById('n' + i).value = state.notes[i];
+    }
+  }
   updateProgress();
 }
 
-function saveNote(i, val) { state.notes[i] = val; }
+function toggle(i) {
+  state.checked[i] = !state.checked[i];
+  document.getElementById('i' + i).classList.toggle('done', state.checked[i]);
+  saveState();
+  updateProgress();
+}
+
+function saveNote(i, val) {
+  state.notes[i] = val;
+  saveState();
+}
 
 function updateProgress() {
   const done = state.checked.filter(Boolean).length;
   const pct = Math.round((done / TOTAL) * 100);
   document.getElementById('bar').style.width = pct + '%';
   document.getElementById('count').textContent = done + ' / ' + TOTAL;
-  document.getElementById('bar').style.background = pct === 100 ? '#8FC5B5' : pct > 50 ? '#5B8EC9' : '#F2A07B';
+  document.getElementById('bar').style.background =
+    pct === 100 ? '#8FC5B5' : pct > 50 ? '#5B8EC9' : '#F2A07B';
+  if (done === TOTAL) setTimeout(showCelebration, 400);
 }
+
+function showCelebration() {
+  const el = document.getElementById('celebration');
+  el.style.display = 'flex';
+  launchConfetti();
+}
+
+function closeCelebration() {
+  document.getElementById('celebration').style.display = 'none';
+}
+
+/* ── Lightweight confetti ── */
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#5B8EC9','#F2A07B','#8FC5B5','#B8A9D4','#FADBC8','#D0EDE3'];
+  const pieces = Array.from({length: 120}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height - canvas.height,
+    w: Math.random() * 10 + 5,
+    h: Math.random() * 6 + 3,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    rot: Math.random() * Math.PI * 2,
+    vx: (Math.random() - 0.5) * 2,
+    vy: Math.random() * 3 + 2,
+    vr: (Math.random() - 0.5) * 0.15
+  }));
+
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = 0.85;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      if (p.y > canvas.height + 20) { p.y = -20; p.x = Math.random() * canvas.width; }
+    });
+    frame++;
+    if (frame < 280) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
+}
+
+/* ── Init ── */
+loadState();
+restoreUI();
 </script>
 
 </body>
