@@ -31,6 +31,9 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;border-radius:var(--radius-md);font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;border:none;cursor:pointer;transition:all 0.3s;text-decoration:none}
 .btn-primary{background:var(--blue);color:var(--white);box-shadow:var(--shadow-blue)}
 .btn-primary:hover{background:var(--blue-deep);transform:translateY(-2px)}
+.btn-gcal{background:var(--white);color:var(--dark);border:1.5px solid var(--border);margin-top:12px;width:100%;justify-content:center}
+.btn-gcal:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-wash);transform:translateY(-1px)}
+.btn-gcal img{width:20px;height:20px}
 
 .nav-logo{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:800;color:var(--dark);text-decoration:none;display:block;margin-bottom:32px}
 .nav-logo span{color:var(--peach)}
@@ -48,21 +51,49 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 // Fire purchase event after tracking loads
 setTimeout(() => { if (window.sfTrack) sfTrack.purchase('Session Booking', 0); }, 2000);
 
-// Send booking notification email
+// Send booking notification + build Google Calendar link
 (function() {
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get('session_id');
-  if (sessionId) {
-    // Retrieve booking data from sessionStorage (saved before Stripe redirect)
-    const booking = JSON.parse(sessionStorage.getItem('sf_booking') || '{}');
-    if (booking.service) {
-      fetch('/.netlify/functions/send-notification', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...booking, sessionId }),
-      }).then(r => r.json()).then(d => console.log('Notification sent:', d)).catch(e => console.error('Notification error:', e));
-      sessionStorage.removeItem('sf_booking');
+  const booking = JSON.parse(sessionStorage.getItem('sf_booking') || '{}');
+
+  if (sessionId && booking.service) {
+    // Send notification
+    fetch('/.netlify/functions/send-notification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...booking, sessionId }),
+    }).then(r => r.json()).then(d => console.log('Notification sent:', d)).catch(e => console.error(e));
+
+    // Populate details card
+    const details = document.getElementById('details');
+    if (details && booking.service) {
+      details.innerHTML = `
+        <div class="sd-row"><span class="sd-label">Service</span><span class="sd-value">${booking.service}</span></div>
+        <div class="sd-row"><span class="sd-label">Date</span><span class="sd-value">${booking.date || '—'}</span></div>
+        <div class="sd-row"><span class="sd-label">Time</span><span class="sd-value">${booking.time || '—'} ET</span></div>
+        <div class="sd-row"><span class="sd-label">Name</span><span class="sd-value">${booking.fname} ${booking.lname}</span></div>
+        <div class="sd-row"><span class="sd-label">Status</span><span class="sd-value" style="color:var(--mint)">✓ Confirmed & Paid</span></div>
+      `;
     }
+
+    // Build Google Calendar URL
+    try {
+      const dateStr = booking.date;   // e.g. "Mon, Mar 24, 2026"
+      const timeStr = booking.time;   // e.g. "10:00 AM"
+      if (dateStr && timeStr) {
+        const dt = new Date(dateStr + ' ' + timeStr);
+        const dtEnd = new Date(dt.getTime() + 60 * 60 * 1000); // +1 hour
+        const fmt = d => d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+        const title = encodeURIComponent(`${booking.service} — Stael Fogarty`);
+        const details_cal = encodeURIComponent(`Session with Stael Fogarty\nhello@staelfogarty.com\nstaelfogarty.com`);
+        const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(dt)}/${fmt(dtEnd)}&details=${details_cal}&location=Orlando%2C+FL+or+Virtual`;
+        const btn = document.getElementById('gcal-btn');
+        if (btn) { btn.href = gcalUrl; btn.style.display = 'inline-flex'; }
+      }
+    } catch(e) { console.log('gcal error', e); }
+
+    sessionStorage.removeItem('sf_booking');
   }
 })();
 </script>
@@ -82,10 +113,13 @@ setTimeout(() => { if (window.sfTrack) sfTrack.purchase('Session Booking', 0); }
 
   <div class="success-trust">
     <div class="st-item"><span class="st-icon">📧</span> Confirmation email sent</div>
-    <div class="st-item"><span class="st-icon">📅</span> Calendar invite included</div>
+    <div class="st-item"><span class="st-icon">🔒</span> Payment secured by Stripe</div>
   </div>
 
-  <a href="index.html" class="btn btn-primary">Back to Home →</a>
+  <a href="index.html" class="btn btn-primary" style="width:100%;justify-content:center;">Back to Home →</a>
+  <a id="gcal-btn" href="#" target="_blank" class="btn btn-gcal" style="display:none;">
+    <img src="https://www.google.com/favicon.ico" alt="Google"> Add to Google Calendar
+  </a>
 </div>
 
 </body>

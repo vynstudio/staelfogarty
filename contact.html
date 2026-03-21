@@ -564,10 +564,14 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 revealEls.forEach(el => observer.observe(el));
 
-// ── Auto-select service from URL param ──
+// ── Auto-fill from URL params (chatbot pre-fill + direct service links) ──
 (function() {
   const params = new URLSearchParams(window.location.search);
-  const svc = params.get('service');
+  const svc   = params.get('service');
+  const name  = params.get('name');
+  const email = params.get('email');
+
+  // Pre-select service
   if (svc) {
     const opts = document.querySelectorAll('.service-opt');
     opts.forEach(el => {
@@ -576,6 +580,40 @@ revealEls.forEach(el => observer.observe(el));
         setTimeout(() => goStep(2), 300);
       }
     });
+  }
+
+  // Pre-fill name
+  if (name) {
+    const parts = name.trim().split(' ');
+    const fn = document.getElementById('fname');
+    const ln = document.getElementById('lname');
+    if (fn) fn.value = parts[0] || '';
+    if (ln) ln.value = parts.slice(1).join(' ') || '';
+    // Update booking state
+    setTimeout(() => {
+      if (fn) fn.dispatchEvent(new Event('input'));
+      if (ln) ln.dispatchEvent(new Event('input'));
+    }, 100);
+  }
+
+  // Pre-fill email
+  if (email) {
+    const em = document.getElementById('email');
+    if (em) {
+      em.value = email;
+      setTimeout(() => em.dispatchEvent(new Event('input')), 100);
+    }
+  }
+
+  // Show a welcome message if coming from chatbot
+  if (name && email) {
+    setTimeout(() => {
+      const hero = document.querySelector('.contact-hero p, .page-hero p, .hero-sub');
+      if (hero) {
+        const first = name.split(' ')[0];
+        hero.innerHTML = `Welcome back, <strong>${first}</strong>! Pick your date & time below and you're all set. 🎉`;
+      }
+    }, 200);
   }
 })();
 </script>
