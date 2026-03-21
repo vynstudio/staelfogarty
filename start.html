@@ -418,10 +418,12 @@ a { text-decoration: none; color: inherit; }
   <div style="font-size:4rem; margin-bottom:16px;" id="cel-emoji">🎉</div>
   <h2 style="font-family:'Fraunces',serif; font-size:2.2rem; font-weight:800; color:#2A2A3A; margin-bottom:12px; letter-spacing:-0.02em;">You're all set, Stael!</h2>
   <p style="font-size:1.05rem; color:#7C7C96; max-width:420px; line-height:1.65; margin-bottom:32px;">Everything's checked off. We'll take it from here — your site is live, ads are ready, and clients are on their way. 🚀</p>
-  <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+  <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:16px;">
     <a href="https://staelfogarty.com" style="padding:14px 28px; background:#5B8EC9; color:white; border-radius:100px; font-size:0.95rem; font-weight:800; box-shadow:0 8px 28px rgba(91,142,201,0.3);">Visit your site →</a>
     <button onclick="closeCelebration()" style="padding:14px 28px; background:transparent; color:#7C7C96; border:1.5px solid #EDECF0; border-radius:100px; font-size:0.95rem; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif;">Back to checklist</button>
   </div>
+  <button id="send-btn" onclick="sendSummary()" style="padding:12px 28px; background:#EFF9F5; color:#6BAA97; border:1.5px solid #D0EDE3; border-radius:100px; font-size:0.9rem; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif;">📨 Send my responses to Vyn Studio</button>
+  <p id="send-status" style="margin-top:10px; font-size:0.82rem; color:#A5A5BA; min-height:20px;"></p>
   <canvas id="confetti-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:-1;"></canvas>
 </div>
 
@@ -529,6 +531,65 @@ function launchConfetti() {
     else ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
   draw();
+}
+
+/* ── Item labels for summary email ── */
+const LABELS = [
+  'Stripe account connected',
+  'Professional headshot sent',
+  'Phone number confirmed',
+  '3–5 real client testimonials',
+  'Service pricing confirmed',
+  'Casual/fun photo for About page',
+  'Facebook & Instagram ads go live',
+  'Social media content creation',
+  'Social media account access shared',
+  'Proposal signed'
+];
+
+/* ── Send summary via Formspree ── */
+async function sendSummary() {
+  const btn = document.getElementById('send-btn');
+  const status = document.getElementById('send-status');
+
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  let body = 'STAEL FOGARTY — ONBOARDING CHECKLIST SUMMARY\n';
+  body += '============================================\n\n';
+  body += `Completed: ${state.checked.filter(Boolean).length} / ${TOTAL}\n`;
+  body += `Date: ${new Date().toLocaleString('en-US', {timeZone:'America/New_York'})} ET\n\n`;
+
+  LABELS.forEach((label, i) => {
+    const done = state.checked[i] ? '✅' : '⬜';
+    body += `${done} ${label}\n`;
+    if (state.notes[i]) body += `   → ${state.notes[i]}\n`;
+    body += '\n';
+  });
+
+  try {
+    const res = await fetch('https://formspree.io/f/xpwzgbqe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: '✅ Stael Fogarty — Onboarding Checklist Complete',
+        message: body,
+        _replyto: 'hello@staelfogarty.com'
+      })
+    });
+    if (res.ok) {
+      btn.textContent = '✅ Sent to Vyn Studio!';
+      btn.style.background = '#D0EDE3';
+      status.textContent = 'We got it — we'll be in touch shortly.';
+    } else {
+      throw new Error('Failed');
+    }
+  } catch(e) {
+    btn.textContent = '📨 Send my responses to Vyn Studio';
+    btn.disabled = false;
+    status.textContent = 'Something went wrong — try again or contact hello@vyn.studio';
+    status.style.color = '#E08A60';
+  }
 }
 
 /* ── Init ── */
