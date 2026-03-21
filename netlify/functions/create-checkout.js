@@ -63,13 +63,14 @@ exports.handler = async (event) => {
       cancel_url: `${process.env.URL || 'https://staelfogarty.com'}/contact.html`,
     };
 
-    // Stripe Connect — 20% platform commission, remainder to Stael
-    const staelAccountId = process.env.STAEL_STRIPE_ACCOUNT_ID || 'acct_1TDSoKQe7O4V0tdq';
-    const commissionAmount = Math.round(price * 100 * 0.20);
+    // Payments go directly to Stael's Stripe account.
+    // 20% commission tracked via Stripe metadata and invoiced monthly.
+    // Stripe Connect split will be enabled once platform onboarding is complete.
     sessionParams.payment_intent_data = {
-      application_fee_amount: commissionAmount,
-      transfer_data: {
-        destination: staelAccountId,
+      metadata: {
+        platform_commission_pct: '20',
+        platform_commission_amount: String(Math.round(price * 100 * 0.20)),
+        vyn_studio: 'commission_tracked',
       },
     };
 
