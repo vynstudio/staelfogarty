@@ -11,6 +11,8 @@
 //   STAEL_EMAIL         — hello@staelfogarty.com
 
 const { google } = require('googleapis');
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const VIRTUAL_SERVICES = ['Virtual Session', 'Language Coaching'];
 const STAEL_EMAIL = process.env.STAEL_EMAIL || 'hello@staelfogarty.com';
@@ -214,16 +216,21 @@ exports.handler = async (event) => {
 // ── Helpers ──
 
 async function sendEmail(gmail, { from, to, subject, body }) {
-  const raw = [
-    `From: ${from}`,
-    `To: ${to}`,
-    `Subject: ${subject}`,
-    `Content-Type: text/plain; charset=utf-8`,
-    '',
-    body,
-  ].join('\n');
-  const encoded = Buffer.from(raw).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  await gmail.users.messages.send({ userId: 'me', requestBody: { raw: encoded } });
+  // Use Resend if available, otherwise fall back to Gmail API
+  if (process.env.RESEND_API_KEY) {
+    await resend.emails.send({ from, to, subject, text: body });
+  } else if (gmail) {
+    const raw = [
+      `From: ${from}`,
+      `To: ${to}`,
+      `Subject: ${subject}`,
+      `Content-Type: text/plain; charset=utf-8`,
+      '',
+      body,
+    ].join('\n');
+    const encoded = Buffer.from(raw).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    await gmail.users.messages.send({ userId: 'me', requestBody: { raw: encoded } });
+  }
 }
 
 function parseDateTime(dateStr, timeStr) {
