@@ -68,7 +68,7 @@ exports.handler = async (event) => {
 
     // Stripe Connect — 20% platform commission
     // STAEL_CONNECT_READY=true enables automatic split once her Express account is onboarded
-    const staelAccountId = process.env.STAEL_STRIPE_ACCOUNT_ID || 'acct_1TDSoKQe7O4V0tdq';
+    const staelAccountId = process.env.STAEL_STRIPE_ACCOUNT_ID || 'acct_1TEwhkRxG91XHPAc';
     const commissionAmount = Math.round(price * 100 * 0.20);
 
     if (process.env.STAEL_CONNECT_READY === 'true') {
