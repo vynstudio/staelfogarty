@@ -40,7 +40,7 @@ exports.handler = async (event) => {
         },
         business_type: 'individual',
         business_profile: {
-          name: 'Stael Fogarty',
+          name: 'Stael Gissoni',
           mcc: '7299',
           url: 'https://staelfogarty.com',
         },

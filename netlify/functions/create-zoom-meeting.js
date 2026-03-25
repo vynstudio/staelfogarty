@@ -130,7 +130,7 @@ exports.handler = async (event) => {
           start: { dateTime: startISO, timeZone: 'America/New_York' },
           end:   { dateTime: endISO,   timeZone: 'America/New_York' },
           attendees: [
-            { email: STAEL_EMAIL, displayName: 'Stael Fogarty', organizer: true },
+            { email: STAEL_EMAIL, displayName: 'Stael Gissoni', organizer: true },
             { email, displayName: clientName },
           ],
           ...(zoomLink ? {
@@ -175,7 +175,7 @@ exports.handler = async (event) => {
 
         // Email to Stael
         await sendEmail(gmail, {
-          from: `Stael Fogarty Site <${STAEL_EMAIL}>`,
+          from: `Stael Gissoni Site <${STAEL_EMAIL}>`,
           to: STAEL_EMAIL,
           subject: `New Booking: ${service} — ${clientName}`,
           body: `Hi Stael,\n\nNew booking confirmed and paid!\n\nSERVICE: ${service}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${date}\nTIME: ${time} ET\nPRICE: $${price}${zoomSection}\nNOTES: ${notes || 'None'}\nSTRIPE: ${sessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar event: ' + calendarEventLink : ''}\n\n— staelfogarty.com`,
@@ -183,10 +183,10 @@ exports.handler = async (event) => {
 
         // Email to client
         await sendEmail(gmail, {
-          from: `Stael Fogarty <${STAEL_EMAIL}>`,
+          from: `Stael Gissoni <${STAEL_EMAIL}>`,
           to: email,
-          subject: `Your session is confirmed — ${service} with Stael Fogarty`,
-          body: `Hi ${fname},\n\nYour session with Stael is confirmed!\n\nSERVICE: ${service}\nDATE: ${date}\nTIME: ${time} ET\nPRICE: $${price}${zoomSection}\n${isVirtual && zoomLink ? 'Click the Zoom link above to join at the scheduled time.' : isVirtual ? 'Stael will send your Zoom link before the session.' : 'Stael will meet you in person and confirm the location details.'}\n\nCANCELLATION: Free cancellation up to 24 hours before your session.\nContact: hello@staelfogarty.com\n\nThank you for choosing Stael Fogarty!\n\n— staelfogarty.com`,
+          subject: `Your session is confirmed — ${service} with Stael Gissoni`,
+          body: `Hi ${fname},\n\nYour session with Stael is confirmed!\n\nSERVICE: ${service}\nDATE: ${date}\nTIME: ${time} ET\nPRICE: $${price}${zoomSection}\n${isVirtual && zoomLink ? 'Click the Zoom link above to join at the scheduled time.' : isVirtual ? 'Stael will send your Zoom link before the session.' : 'Stael will meet you in person and confirm the location details.'}\n\nCANCELLATION: Free cancellation up to 24 hours before your session.\nContact: hello@staelfogarty.com\n\nThank you for choosing Stael Gissoni!\n\n— staelfogarty.com`,
         });
 
         emailsSent = true;
@@ -242,7 +242,7 @@ function buildGCalLink({ service, clientName, date, time, zoomLink, isVirtual })
     const start = new Date(`${date.replace(/^[A-Za-z]+,\s*/, '')} ${year} ${time}`);
     const end = new Date(start.getTime() + 60 * 60000);
     const fmt = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    const title = encodeURIComponent(`${service} — Stael Fogarty`);
+    const title = encodeURIComponent(`${service} — Stael Gissoni`);
     const details = encodeURIComponent([
       zoomLink ? `Zoom: ${zoomLink}` : isVirtual ? 'Zoom link to be sent by Stael' : 'In-person session',
       'hello@staelfogarty.com | staelfogarty.com',

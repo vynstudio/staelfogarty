@@ -60,7 +60,7 @@ The client has already paid. Please confirm the session details with them.
     `.trim();
 
     // Email content for the client (booking confirmation)
-    const clientSubject = `Booking Confirmed — ${service} with Stael Fogarty`;
+    const clientSubject = `Booking Confirmed — ${service} with Stael Gissoni`;
     const clientBody = `
 Hi ${fname},
 
@@ -79,7 +79,7 @@ CANCELLATION POLICY:
 
 If you have any questions before your session, feel free to reply to this email or contact Stael directly.
 
-Thank you for choosing Stael Fogarty!
+Thank you for choosing Stael Gissoni!
 
 — staelfogarty.com
     `.trim();
@@ -104,7 +104,7 @@ Thank you for choosing Stael Fogarty!
     //
     // // Email to Stael
     // await resend.emails.send({
-    //   from: 'Stael Fogarty Website <noreply@staelfogarty.com>',
+    //   from: 'Stael Gissoni Website <noreply@staelfogarty.com>',
     //   to: staelEmail,
     //   subject: staelSubject,
     //   text: staelBody,
@@ -112,7 +112,7 @@ Thank you for choosing Stael Fogarty!
     //
     // // Email to client
     // await resend.emails.send({
-    //   from: 'Stael Fogarty <noreply@staelfogarty.com>',
+    //   from: 'Stael Gissoni <noreply@staelfogarty.com>',
     //   to: email,
     //   subject: clientSubject,
     //   text: clientBody,
