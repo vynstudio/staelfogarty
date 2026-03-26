@@ -47,7 +47,7 @@ exports.handler = async (event) => {
     auth.projectId = saKey.project_id;
     await auth.authorize();
 
-    const calendar = google.calendar({ version: 'v3', auth });
+    const calendar = google.calendar({ version: 'v3', auth, headers: { 'x-goog-user-project': saKey.project_id } });
 
     // Get busy times for next N days
     const now = new Date();

@@ -63,7 +63,7 @@ exports.handler = async (event) => {
     // ── Create Google Calendar event with Meet link ──
     if (googleAuth) {
       try {
-        const calendar = google.calendar({ version: 'v3', auth: googleAuth });
+        const calendar = google.calendar({ version: 'v3', auth: googleAuth, headers: { 'x-goog-user-project': saKey.project_id } });
         const startISO = parseDateTime(date, time);
         const duration = service === 'Language Coaching' ? 60 : 90;
         const endISO = new Date(new Date(startISO).getTime() + duration * 60000).toISOString();
