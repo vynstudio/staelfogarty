@@ -208,10 +208,27 @@ const I18N = {
   },
 
   updateToggle() {
-    const btn = document.getElementById('langToggle');
-    if (!btn) return;
-    btn.textContent = this.current === 'en' ? 'PT' : 'EN';
-    btn.setAttribute('aria-label', this.current === 'en' ? 'Mudar para Português' : 'Switch to English');
+    const flag = document.getElementById('langFlag');
+    const label = document.getElementById('langLabel');
+    if (!flag || !label) return;
+    if (this.current === 'en') {
+      flag.textContent = '🇧🇷';
+      label.textContent = 'Português';
+      document.getElementById('langToggle').setAttribute('aria-label', 'Mudar para Português');
+    } else {
+      flag.textContent = '🇺🇸';
+      label.textContent = 'English';
+      document.getElementById('langToggle').setAttribute('aria-label', 'Switch to English');
+    }
+    // Update homepage chips if present
+    const chipEn = document.querySelector('.chip-en');
+    const chipPt = document.querySelector('.chip-pt');
+    if (chipEn && chipPt) {
+      chipEn.style.opacity = this.current === 'en' ? '1' : '0.45';
+      chipEn.style.fontWeight = this.current === 'en' ? '800' : '500';
+      chipPt.style.opacity = this.current === 'pt' ? '1' : '0.45';
+      chipPt.style.fontWeight = this.current === 'pt' ? '800' : '500';
+    }
   },
 
   toggle() {
@@ -221,6 +238,11 @@ const I18N = {
   init() {
     this.apply();
     this.updateToggle();
+    // Make homepage language chips clickable
+    const chipEn = document.querySelector('.chip-en');
+    const chipPt = document.querySelector('.chip-pt');
+    if (chipEn) { chipEn.style.cursor = 'pointer'; chipEn.onclick = () => this.set('en'); }
+    if (chipPt) { chipPt.style.cursor = 'pointer'; chipPt.onclick = () => this.set('pt'); }
   }
 };
 

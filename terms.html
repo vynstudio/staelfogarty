@@ -43,7 +43,7 @@ a{color:var(--blue);text-decoration:none}a:hover{color:var(--blue-deep)}
     <a href="about.html" class="nav-link">About</a>
     <a href="services.html" class="nav-link">Services</a>
     <a href="blog.html" class="nav-link">Blog</a>
-    <a href="contact.html" class="nav-link nav-cta">Book a Session</a>
+    <button id="langToggle" onclick="I18N.toggle()" style="display:flex;align-items:center;gap:6px;background:transparent;border:1.5px solid var(--border);border-radius:var(--radius-pill);padding:7px 14px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.25s;margin-right:4px;color:var(--text)" aria-label="Mudar para Português"><span id="langFlag">🇧🇷</span><span id="langLabel">Português</span></button><a href="contact.html" class="nav-link nav-cta">Book a Session</a>
   </div>
 </nav>
 
@@ -124,5 +124,6 @@ const nav=document.getElementById('nav');window.addEventListener('scroll',()=>na
 const toggle=document.getElementById('navToggle'),menu=document.getElementById('navMenu');
 toggle.addEventListener('click',()=>{menu.classList.toggle('open');const s=toggle.querySelectorAll('span');if(menu.classList.contains('open')){s[0].style.transform='rotate(45deg) translate(4px,4px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-4px)';}else{s[0].style.transform='none';s[1].style.opacity='1';s[2].style.transform='none';}});
 </script>
+<script src="/lang.js"></script>
 </body>
 </html>
