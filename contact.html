@@ -187,18 +187,36 @@ textarea.form-input{resize:vertical;min-height:72px}
 /* RESPONSIVE */
 @media(max-width:900px){.booking-grid{grid-template-columns:1fr}.order-summary{position:static}}
 @media(max-width:768px){
-  .nav{padding:0 20px;height:64px}
-  .nav-menu{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);padding:16px 24px 24px;flex-direction:column;border-bottom:1.5px solid var(--border);box-shadow:var(--shadow-md)}
+  .nav{padding:0 16px;height:60px}
+  .nav-menu{display:none;position:absolute;top:60px;left:0;right:0;background:var(--bg);padding:12px 16px 20px;flex-direction:column;gap:4px;border-bottom:1.5px solid var(--border);box-shadow:var(--shadow-md)}
   .nav-menu.open{display:flex}
   .nav-toggle{display:block}
-  .nav-cta{margin-left:0;width:100%;text-align:center;justify-content:center}
-  .service-options{grid-template-columns:1fr 1fr}
-  .time-grid{grid-template-columns:repeat(3,1fr)}
+  .nav-cta{margin-left:0;width:100%;text-align:center;justify-content:center;margin-top:4px}
+  .service-options{grid-template-columns:1fr 1fr;gap:8px}
+  .service-opt{padding:14px 12px}
+  .so-emoji{font-size:1.4rem;margin-bottom:6px}
+  .time-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .time-chip{padding:10px 6px;font-size:.78rem}
+  .date-strip{gap:6px}
+  .date-chip{padding:10px 12px;min-width:58px}
+  .date-chip .dc-num{font-size:1.1rem}
   .form-row{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr;gap:32px}
-  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+  .booking-form-card{padding:24px 18px}
+  .page-hero{padding:100px 16px 36px}
+  .footer-grid{grid-template-columns:1fr;gap:28px}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+  .os-card{padding:22px 18px}
+  .step-indicator{gap:0;margin-bottom:24px}
+  .step-pill{padding:8px 10px;font-size:.76rem}
+  .step-pill-num{width:22px;height:22px;font-size:.7rem}
 }
-@media(max-width:480px){.service-options{grid-template-columns:1fr 1fr}.time-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){
+  .service-options{grid-template-columns:1fr 1fr}
+  .time-grid{grid-template-columns:repeat(2,1fr)}
+  .booking-form-card{padding:20px 14px}
+  .form-btns{flex-direction:column}
+  .btn-ghost{text-align:center;justify-content:center}
+}
 </style>
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>

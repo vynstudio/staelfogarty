@@ -158,6 +158,11 @@ h1.hero-h1 em{font-style:italic;color:var(--blue)}
 @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .svc-grid{grid-template-columns:1fr!important}
+  .svc-grid .svc-card[style*="grid-column:span 2"]{grid-column:span 1!important}
+  .svc-grid .svc-card[style*="grid-column:span 2"] > div{grid-template-columns:1fr!important}
+}
 @media(max-width:768px){
   .nav{padding:0 20px;height:62px}
   .nav-right{display:none;position:absolute;top:62px;left:0;right:0;background:var(--bg);padding:16px 24px 24px;flex-direction:column;border-bottom:1.5px solid var(--border);box-shadow:var(--sh-md)}
@@ -165,9 +170,16 @@ h1.hero-h1 em{font-style:italic;color:var(--blue)}
   .nav-toggle{display:block}
   .nav-cta{margin-left:0;width:100%;text-align:center;justify-content:center}
   .dual-banner{grid-template-columns:1fr}
+  .dual-card{padding:14px 16px}
+  .hero{padding:100px 16px 48px}
   .svc-grid,.why-grid,.testi-grid{grid-template-columns:1fr}
-  .cta-card{flex-direction:column;padding:44px 28px;text-align:center}
+  .svc-card{padding:24px 20px}
+  .why-card{padding:20px 16px}
+  .testi-card{padding:20px 16px}
+  .cta-card{flex-direction:column;padding:36px 20px;text-align:center}
+  .cta-btn .btn{width:100%;justify-content:center}
   .footer-inner{flex-direction:column;text-align:center}
+  .footer-links{justify-content:center;gap:12px}
 }
 </style>
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>

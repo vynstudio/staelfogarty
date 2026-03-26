@@ -158,9 +158,16 @@ h1.hero-h1 .bl{color:var(--blue)}
   .nav-toggle{display:block}
   .nav-cta{margin-left:0;width:100%;text-align:center;justify-content:center}
   .dual-banner{grid-template-columns:1fr}
+  .dual-card{padding:14px 16px}
+  .hero{padding:100px 16px 48px}
   .svc-grid,.why-grid,.testi-grid{grid-template-columns:1fr}
-  .cta-card{flex-direction:column;padding:44px 28px;text-align:center}
+  .svc-card{padding:24px 20px}
+  .why-card{padding:20px 16px}
+  .testi-card{padding:20px 16px}
+  .cta-card{flex-direction:column;padding:36px 20px;text-align:center}
+  .cta-btn .btn{width:100%;justify-content:center}
   .footer-inner{flex-direction:column;text-align:center}
+  .footer-links{justify-content:center;gap:12px}
 }
 </style>
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>

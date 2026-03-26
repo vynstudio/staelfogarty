@@ -879,11 +879,18 @@ a { text-decoration: none; color: inherit; }
 }
 
 @media (max-width: 480px) {
-  .hero h1 { font-size: 2rem; }
+  .hero { padding: 90px 16px 48px; }
+  .hero h1 { font-size: 1.9rem; }
+  .hero-desc { font-size: .95rem; }
   .hero-btns { flex-direction: column; align-items: stretch; }
   .btn { justify-content: center; }
-  .about-stats { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
   .process-grid { grid-template-columns: 1fr; }
+  .section { padding: 60px 0; }
+  .section-title { font-size: 1.6rem; }
+  .sv-card { padding: 24px 20px; }
+  .cta-card { padding: 40px 20px; }
+  .footer-grid { gap: 24px; }
 }
 </style>
 <!-- Tracking -->
@@ -898,12 +905,11 @@ a { text-decoration: none; color: inherit; }
     <span></span><span></span><span></span>
   </button>
   <div class="nav-menu" id="navMenu">
-    <a href="about.html" class="nav-link" data-i18n="nav_about">About</a>
-    <a href="services.html" class="nav-link" data-i18n="nav_services">Services</a>
-    <a href="blog.html" class="nav-link" data-i18n="nav_blog">Blog</a>
-    <a href="#faq" class="nav-link">FAQ</a>
-    <button id="langToggle" onclick="I18N.toggle()" style="display:flex;align-items:center;gap:6px;background:transparent;border:1.5px solid var(--border);border-radius:var(--radius-pill);padding:7px 14px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.25s;margin-right:4px;color:var(--text)" aria-label="Mudar para Português"><span id="langFlag">🇧🇷</span><span id="langLabel">Português</span></button><a href="lessons.html" class="nav-link">English Lessons</a>
+    <a href="lessons.html" class="nav-link">English Lessons</a>
     <a href="interpretation.html" class="nav-link">Interpretation</a>
+    <a href="about.html" class="nav-link" data-i18n="nav_about">About</a>
+    <a href="blog.html" class="nav-link" data-i18n="nav_blog">Blog</a>
+    <button id="langToggle" onclick="I18N.toggle()" style="display:flex;align-items:center;gap:6px;background:transparent;border:1.5px solid var(--border);border-radius:var(--radius-pill);padding:7px 14px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.25s;margin-right:4px;color:var(--text)" aria-label="Mudar para Português"><span id="langFlag">🇧🇷</span><span id="langLabel">Português</span></button>
     <a href="contact.html" class="nav-link nav-cta" data-i18n="nav_book">Book a Session</a>
   </div>
 </nav>
