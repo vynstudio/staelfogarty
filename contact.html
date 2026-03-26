@@ -294,16 +294,7 @@ textarea.form-input{resize:vertical;min-height:72px}
 
           <!-- Time grid -->
           <div class="time-label">Select a time <span style="font-weight:400;text-transform:none;letter-spacing:0">(Eastern Time)</span></div>
-          <div class="time-grid">
-            <div class="time-chip" onclick="selectTime(this)">9:00 AM</div>
-            <div class="time-chip" onclick="selectTime(this)">10:00 AM</div>
-            <div class="time-chip" onclick="selectTime(this)">11:00 AM</div>
-            <div class="time-chip" onclick="selectTime(this)">12:00 PM</div>
-            <div class="time-chip" onclick="selectTime(this)">1:00 PM</div>
-            <div class="time-chip" onclick="selectTime(this)">2:00 PM</div>
-            <div class="time-chip" onclick="selectTime(this)">3:00 PM</div>
-            <div class="time-chip" onclick="selectTime(this)">4:00 PM</div>
-          </div>
+          <div class="time-grid" id="timeGrid"></div>
 
           <!-- Divider -->
           <div style="border-top:1.5px solid var(--border);margin:24px 0 20px"></div>
@@ -452,25 +443,43 @@ toggle.addEventListener('click',()=>{
   else{s[0].style.transform='none';s[1].style.opacity='1';s[2].style.transform='none';}
 });
 
-// ── Build date strip ──
-function buildDates(){
+// ── Availability (from Google Calendar) ──
+let availabilityData = {};
+
+async function loadAvailability(){
   const strip=document.getElementById('dateStrip');
-  let d=new Date();d.setDate(d.getDate()+1);
-  let count=0;
-  while(count<10){
-    if(d.getDay()!==0){
+  strip.innerHTML='<div style="padding:14px 4px;color:var(--text-muted);font-size:0.85rem">Loading availability...</div>';
+  try{
+    const res=await fetch('/.netlify/functions/get-availability');
+    const data=await res.json();
+    availabilityData=data.availability||{};
+    strip.innerHTML='';
+    const dateKeys=Object.keys(availabilityData).sort();
+    if(dateKeys.length===0){
+      strip.innerHTML='<div style="padding:14px 4px;color:var(--text-muted);font-size:0.85rem">No availability found. Please contact hello@staelfogarty.com.</div>';
+      return;
+    }
+    dateKeys.forEach(key=>{
+      const day=availabilityData[key];
+      const d=new Date(key+'T12:00:00');
       const el=document.createElement('div');
       el.className='date-chip';
-      el.dataset.date=d.toISOString();
-      el.dataset.display=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+      el.dataset.date=key;
+      el.dataset.display=day.label;
+      el.dataset.slots=JSON.stringify(day.slots);
       el.innerHTML=`<div class="dc-day">${d.toLocaleDateString('en-US',{weekday:'short'})}</div><div class="dc-num">${d.getDate()}</div><div class="dc-mon">${d.toLocaleDateString('en-US',{month:'short'})}</div>`;
       el.onclick=()=>selectDate(el);
-      strip.appendChild(el);count++;
-    }
-    d.setDate(d.getDate()+1);
+      strip.appendChild(el);
+    });
+    // Pre-select first available date
+    const first=strip.querySelector('.date-chip');
+    if(first)selectDate(first);
+  }catch(e){
+    console.error('Availability error:',e);
+    strip.innerHTML='<div style="padding:14px 4px;color:var(--text-muted);font-size:0.85rem">Could not load availability. Please contact hello@staelfogarty.com.</div>';
   }
 }
-buildDates();
+loadAvailability();
 
 // ── Selections ──
 function selectService(el){
@@ -484,7 +493,27 @@ function selectDate(el){
   document.querySelectorAll('.date-chip').forEach(o=>o.classList.remove('selected'));
   el.classList.add('selected');
   B.date=el.dataset.date;B.dateDisplay=el.dataset.display;
+  // Update time slots for this date
+  const slots=el.dataset.slots?JSON.parse(el.dataset.slots):null;
+  buildTimeSlots(slots);
+  B.time=null; // reset time selection
   updateSummary();
+}
+
+function buildTimeSlots(slots){
+  const grid=document.getElementById('timeGrid');
+  const allSlots=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+  const available=slots||allSlots;
+  grid.innerHTML='';
+  allSlots.forEach(slot=>{
+    const el=document.createElement('div');
+    const isAvailable=available.includes(slot);
+    el.className='time-chip'+(isAvailable?'':' unavailable');
+    el.textContent=slot;
+    if(isAvailable){el.onclick=()=>selectTime(el);}
+    else{el.style.opacity='0.3';el.style.cursor='not-allowed';el.style.textDecoration='line-through';}
+    grid.appendChild(el);
+  });
 }
 function selectTime(el){
   document.querySelectorAll('.time-chip').forEach(o=>o.classList.remove('selected'));
