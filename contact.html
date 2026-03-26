@@ -274,28 +274,28 @@ textarea.form-input{resize:vertical;min-height:72px}
               <span class="so-emoji">🎙️</span>
               <div class="so-name">On-Site Interpretation</div>
               <div class="so-summary">Real-time English↔Portuguese for seminars, meetings, events and conferences.</div>
-              <div class="so-price">$95 / hr · 2-HR MINIMUM</div>
+              <div class="so-price">$95 / hrIMUM</div>
               <span class="so-badge blue">In-Person</span>
             </div>
             <div class="service-opt" data-service="Remote Interpretation" data-price="65" data-unit="hr" data-min="2" onclick="selectService(this)">
               <span class="so-emoji">💻</span>
               <div class="so-name">Remote</div>
               <div class="so-summary">Professional English↔Portuguese interpretation via Google Meet or phone.</div>
-              <div class="so-price">$65 / hr · 2-HR MINIMUM</div>
+              <div class="so-price">$65 / hrIMUM</div>
               <span class="so-badge mint">Virtual</span>
             </div>
             <div class="service-opt" data-service="Medical Interpretation" data-price="75" data-unit="hr" data-min="2" onclick="selectService(this)">
               <span class="so-emoji">🏥</span>
               <div class="so-name">Medical Interpretation</div>
               <div class="so-summary">HIPAA-aware interpretation for doctor visits, hospital stays and mental health.</div>
-              <div class="so-price">$75 / hr · 2-HR MINIMUM</div>
+              <div class="so-price">$75 / hrIMUM</div>
               <span class="so-badge lav">Medical</span>
             </div>
             <div class="service-opt" data-service="Immigration Services" data-price="85" data-unit="hr" data-min="2" onclick="selectService(this)">
               <span class="so-emoji">⚖️</span>
               <div class="so-name">Immigration Services</div>
               <div class="so-summary">Court depositions, immigration hearings, Green Card interviews, legal meetings and USCIS appointments.</div>
-              <div class="so-price">$85 / hr · 2-HR MINIMUM</div>
+              <div class="so-price">$85 / hrIMUM</div>
               <span class="so-badge blue">Immigration</span>
             </div>
             <div class="service-opt" data-service="Citizenship Test Preparation" data-price="60" data-unit="hr" onclick="selectService(this)">
@@ -313,6 +313,12 @@ textarea.form-input{resize:vertical;min-height:72px}
               <span class="so-badge peach">Teaching</span>
             </div>
           </div>
+
+          <div id="interpDisclaimer" style="display:none;margin-top:16px;padding:14px 16px;background:#EBF2FA;border-radius:10px;border-left:4px solid #5B8EC9">
+            <p style="font-size:.88rem;color:#2A2A3A;font-weight:600;margin:0 0 4px">⏱️ 2-hour minimum booking</p>
+            <p style="font-size:.82rem;color:#5B8EC9;margin:0">This interpretation service requires a minimum booking of 2 hours. Your session will be booked for 2 hours automatically.</p>
+          </div>
+
           <div class="form-btns">
             <button class="btn btn-primary" id="btn1" disabled onclick="goStep(2)">Continue →</button>
           </div>
@@ -533,6 +539,9 @@ function selectService(el){
   B.hours=B.minHours;
   B.price=B.pricePerHr*B.hours;
   document.getElementById('btn1').disabled=false;
+  // Show 2-hour disclaimer for interpretation services
+  const disc=document.getElementById('interpDisclaimer');
+  if(disc) disc.style.display=B.minHours>=2?'block':'none';
   updateSummary();
 }
 function selectDate(el){
