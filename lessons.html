@@ -169,6 +169,14 @@ h1.hero-h1 .bl{color:var(--blue)}
   .footer-inner{flex-direction:column;text-align:center}
   .footer-links{justify-content:center;gap:12px}
 }
+
+/* ── Equal height cards ── */
+.services-grid { align-items: stretch; }
+.svc-card { display: flex; flex-direction: column; }
+.svc-card-inner { display: flex; flex-direction: column; height: 100%; }
+.svc-card p { flex: 1; }
+.svc-features { margin-top: 0; }
+.svc-footer { margin-top: auto; }
 </style>
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>

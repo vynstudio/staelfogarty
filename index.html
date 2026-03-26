@@ -892,6 +892,12 @@ a { text-decoration: none; color: inherit; }
   .cta-card { padding: 40px 20px; }
   .footer-grid { gap: 24px; }
 }
+
+/* ── Equal height service cards ── */
+.services-grid { align-items: stretch; }
+.sv-card { display: flex; flex-direction: column; }
+.sv-card p { flex: 1; }
+.sv-price { margin-top: auto; }
 </style>
 <!-- Tracking -->
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
