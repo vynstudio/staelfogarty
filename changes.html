@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stael — Site Change Request</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F7F6F3;color:#2A2A3A;font-size:15px;line-height:1.6;padding:32px 16px 80px}
+.wrap{max-width:680px;margin:0 auto}
+.header{background:#fff;border-radius:16px;padding:32px 36px;margin-bottom:24px;border:1px solid #EDECF0}
+.logo{font-size:1.6rem;font-weight:800;color:#2A2A3A;letter-spacing:-.02em;margin-bottom:6px}
+.logo span{color:#F2A07B}
+.header p{font-size:.9rem;color:#7C7C96;line-height:1.6}
+.header .tip{margin-top:12px;padding:10px 14px;background:#EBF2FA;border-radius:8px;font-size:.83rem;color:#4A78B0;font-weight:500}
+
+.card{background:#fff;border-radius:16px;padding:28px 32px;margin-bottom:16px;border:1px solid #EDECF0}
+.card h2{font-size:1rem;font-weight:700;color:#2A2A3A;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.card .desc{font-size:.82rem;color:#7C7C96;margin-bottom:20px}
+
+label{display:block;font-size:.82rem;font-weight:700;color:#2A2A3A;margin-bottom:6px}
+input[type=text],input[type=email],textarea,select{width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid #EDECF0;font-family:inherit;font-size:.88rem;color:#2A2A3A;background:#FEFBF6;outline:none;transition:border-color .2s}
+input[type=text]:focus,input[type=email]:focus,textarea:focus,select:focus{border-color:#5B8EC9;background:#fff}
+textarea{resize:vertical;min-height:90px}
+.hint{font-size:.76rem;color:#A5A5BA;margin-top:4px}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.row.full{grid-template-columns:1fr}
+.field{margin-bottom:16px}
+
+/* Category buttons */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px}
+.cat-btn{padding:12px 10px;border-radius:10px;border:1.5px solid #EDECF0;background:#FEFBF6;cursor:pointer;text-align:center;transition:all .2s;font-family:inherit}
+.cat-btn:hover{border-color:#A3C4E9;background:#EBF2FA}
+.cat-btn.selected{border-color:#5B8EC9;background:#EBF2FA}
+.cat-btn .cb-icon{font-size:1.3rem;margin-bottom:4px;display:block}
+.cat-btn .cb-label{font-size:.78rem;font-weight:700;color:#2A2A3A}
+
+/* Priority */
+.pri-row{display:flex;gap:10px;margin-bottom:4px}
+.pri-btn{flex:1;padding:10px;border-radius:10px;border:1.5px solid #EDECF0;background:#FEFBF6;cursor:pointer;text-align:center;font-size:.82rem;font-weight:700;transition:all .2s;font-family:inherit}
+.pri-btn:hover{border-color:#A3C4E9}
+.pri-btn.p-low.selected{border-color:#8FC5B5;background:#EFF9F5;color:#0F6E56}
+.pri-btn.p-med.selected{border-color:#F2A07B;background:#FFF2EB;color:#E08A60}
+.pri-btn.p-high.selected{border-color:#E24B4A;background:#FCEBEB;color:#A32D2D}
+
+/* Price change table */
+.price-table{width:100%;border-collapse:collapse;margin-bottom:8px}
+.price-table th{font-size:.76rem;font-weight:700;color:#7C7C96;text-align:left;padding:0 8px 8px 0;border-bottom:1.5px solid #EDECF0}
+.price-table td{padding:8px 8px 8px 0;border-bottom:1px solid #F5F5F5;vertical-align:top}
+.price-table input{padding:8px 10px;font-size:.82rem}
+.add-row{font-size:.8rem;font-weight:700;color:#5B8EC9;cursor:pointer;margin-top:8px;display:inline-block;background:none;border:none;font-family:inherit;padding:0}
+.add-row:hover{text-decoration:underline}
+
+/* Submit */
+.submit-area{background:#fff;border-radius:16px;padding:28px 32px;border:1px solid #EDECF0;margin-top:8px}
+.submit-btn{width:100%;padding:16px;border-radius:12px;background:#5B8EC9;color:#fff;font-size:1rem;font-weight:700;border:none;cursor:pointer;transition:all .25s;font-family:inherit}
+.submit-btn:hover{background:#4A78B0;transform:translateY(-1px)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Success */
+.success-screen{display:none;text-align:center;padding:40px 20px}
+.success-screen .si{font-size:3rem;margin-bottom:16px}
+.success-screen h2{font-size:1.3rem;font-weight:700;color:#2A2A3A;margin-bottom:8px}
+.success-screen p{font-size:.9rem;color:#7C7C96;line-height:1.6}
+.success-screen .ref{margin-top:16px;padding:12px 20px;background:#EFF9F5;border-radius:10px;font-size:.85rem;font-weight:700;color:#0F6E56;display:inline-block}
+
+.section-divider{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#A5A5BA;margin:24px 0 16px;padding-bottom:8px;border-bottom:1px solid #EDECF0}
+
+@media(max-width:560px){
+  .row{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .card{padding:22px 20px}
+  .header{padding:24px 22px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="logo">stael<span>.</span> site</div>
+    <p>Use this form to request any change to your website — prices, service names, new text, photos, or anything else. Diler will get it done and send you a confirmation.</p>
+    <div class="tip">💡 Tip: Be as specific as possible. For example: "Change Live Interpretation price from $65 to $70" works better than "update prices."</div>
+  </div>
+
+  <div id="mainForm">
+
+    <!-- YOUR INFO -->
+    <div class="card">
+      <h2>👤 Your info</h2>
+      <div class="desc">So we know who sent this request.</div>
+      <div class="row">
+        <div class="field">
+          <label>Your name *</label>
+          <input type="text" id="reqName" placeholder="Stael Gissoni">
+        </div>
+        <div class="field">
+          <label>Your email *</label>
+          <input type="email" id="reqEmail" placeholder="hello@staelfogarty.com">
+        </div>
+      </div>
+    </div>
+
+    <!-- CHANGE TYPE -->
+    <div class="card">
+      <h2>🔧 What type of change?</h2>
+      <div class="desc">Select everything that applies — you can pick more than one.</div>
+      <div class="cat-grid" id="catGrid">
+        <button class="cat-btn" onclick="toggleCat(this,'Price change')"><span class="cb-icon">💰</span><span class="cb-label">Price change</span></button>
+        <button class="cat-btn" onclick="toggleCat(this,'Service name')"><span class="cb-icon">✏️</span><span class="cb-label">Service name</span></button>
+        <button class="cat-btn" onclick="toggleCat(this,'New service')"><span class="cb-icon">➕</span><span class="cb-label">New service</span></button>
+        <button class="cat-btn" onclick="toggleCat(this,'Remove service')"><span class="cb-icon">🗑️</span><span class="cb-label">Remove service</span></button>
+        <button class="cat-btn" onclick="toggleCat(this,'Text/description')"><span class="cb-icon">📝</span><span class="cb-label">Text or description</span></button>
+        <button class="cat-btn" onclick="toggleCat(this,'Photo/image')"><span class="cb-icon">🖼️</span><span class="cb-label">Photo or image</span></button>
+        <button class="cat-btn" onclick="toggleCat(this,'Availability/hours')"><span class="cb-icon">📅</span><span class="cb-label">Availability or hours</span></button>
+        <button class="cat-btn" onclick="toggleCat(this,'New page')"><span class="cb-icon">📄</span><span class="cb-label">New page</span></button>
+        <button class="cat-btn" onclick="toggleCat(this,'Something else')"><span class="cb-icon">💬</span><span class="cb-label">Something else</span></button>
+      </div>
+      <div class="hint" id="catHint">No categories selected yet.</div>
+    </div>
+
+    <!-- PRICE CHANGES -->
+    <div class="card" id="priceCard" style="display:none">
+      <h2>💰 Price changes</h2>
+      <div class="desc">Fill in what each service currently costs and what you want it to be.</div>
+      <table class="price-table">
+        <thead><tr><th>Service name</th><th>Current price</th><th>New price</th></tr></thead>
+        <tbody id="priceRows">
+          <tr>
+            <td><input type="text" placeholder="e.g. Live Interpretation"></td>
+            <td><input type="text" placeholder="$65/hr"></td>
+            <td><input type="text" placeholder="$70/hr"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="add-row" onclick="addPriceRow()">+ Add another service</button>
+    </div>
+
+    <!-- SERVICE NAMES -->
+    <div class="card" id="nameCard" style="display:none">
+      <h2>✏️ Service name changes</h2>
+      <div class="desc">What is the current name and what should it be changed to?</div>
+      <table class="price-table">
+        <thead><tr><th>Current name</th><th>New name</th></tr></thead>
+        <tbody id="nameRows">
+          <tr>
+            <td><input type="text" placeholder="e.g. Language Coaching"></td>
+            <td><input type="text" placeholder="e.g. 1/1 Private Lessons"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="add-row" onclick="addNameRow()">+ Add another name change</button>
+    </div>
+
+    <!-- GENERAL CHANGES -->
+    <div class="card">
+      <h2>📋 Describe your request</h2>
+      <div class="desc">Tell us exactly what you want changed. Include the page name if you know it (Home, Services, Booking, About, etc.)</div>
+      <div class="field">
+        <label>What needs to change? *</label>
+        <textarea id="reqDesc" placeholder="Example: On the Services page, change the description of Medical Interpretation to say 'I provide HIPAA-compliant interpretation for doctor visits, hospital stays, and mental health appointments.' Also update the price to $80/hr."></textarea>
+        <div class="hint">Be as specific as possible — include the page, section, and exact wording if you have it.</div>
+      </div>
+      <div class="field">
+        <label>Which page is this on? (optional)</label>
+        <select id="reqPage">
+          <option value="">Not sure / applies to all pages</option>
+          <option>Home page (staelfogarty.com)</option>
+          <option>Services page</option>
+          <option>Booking page (Book a Session)</option>
+          <option>English Lessons page</option>
+          <option>Interpretation page</option>
+          <option>About page</option>
+          <option>Blog</option>
+          <option>Success / Confirmation page</option>
+          <option>Multiple pages</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- PRIORITY -->
+    <div class="card">
+      <h2>⚡ How urgent is this?</h2>
+      <div class="desc">This helps Diler prioritize your request.</div>
+      <div class="pri-row">
+        <button class="pri-btn p-low" onclick="setPri(this,'low')">🟢 Not urgent<br><span style="font-weight:400;font-size:.75rem">This week is fine</span></button>
+        <button class="pri-btn p-med" onclick="setPri(this,'medium')">🟡 Soon<br><span style="font-weight:400;font-size:.75rem">Within a day or two</span></button>
+        <button class="pri-btn p-high" onclick="setPri(this,'high')">🔴 Urgent<br><span style="font-weight:400;font-size:.75rem">As soon as possible</span></button>
+      </div>
+      <input type="hidden" id="reqPriority" value="">
+    </div>
+
+    <!-- ANYTHING ELSE -->
+    <div class="card">
+      <h2>📎 Anything else?</h2>
+      <div class="desc">Photos to upload, links to reference, or anything you want to add.</div>
+      <div class="field">
+        <label>Extra notes (optional)</label>
+        <textarea id="reqNotes" placeholder="e.g. I'll send the new photo by WhatsApp. Also check if the chatbot says the old service name — it needs to be updated too."></textarea>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <div id="submitError" style="color:#A32D2D;font-size:.85rem;margin-bottom:12px;display:none"></div>
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">Send Change Request →</button>
+    </div>
+
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="si">✅</div>
+    <h2>Request sent!</h2>
+    <p>Diler will review your request and make the changes to staelfogarty.com. You'll get a confirmation at your email when it's done.</p>
+    <div class="ref" id="refNum"></div>
+    <br><br>
+    <button onclick="resetForm()" style="background:none;border:1.5px solid #EDECF0;border-radius:10px;padding:10px 24px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;color:#5B8EC9">Submit another request</button>
+  </div>
+
+</div>
+
+<script>
+let selectedCats = [];
+let selectedPri = '';
+
+function toggleCat(btn, cat) {
+  btn.classList.toggle('selected');
+  if (selectedCats.includes(cat)) {
+    selectedCats = selectedCats.filter(c => c !== cat);
+  } else {
+    selectedCats.push(cat);
+  }
+  document.getElementById('catHint').textContent = selectedCats.length
+    ? 'Selected: ' + selectedCats.join(', ')
+    : 'No categories selected yet.';
+  // Show/hide price and name cards
+  document.getElementById('priceCard').style.display = selectedCats.includes('Price change') ? 'block' : 'none';
+  document.getElementById('nameCard').style.display = selectedCats.includes('Service name') ? 'block' : 'none';
+}
+
+function setPri(btn, level) {
+  document.querySelectorAll('.pri-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedPri = level;
+  document.getElementById('reqPriority').value = level;
+}
+
+function addPriceRow() {
+  const tbody = document.getElementById('priceRows');
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td><input type="text" placeholder="Service name"></td><td><input type="text" placeholder="Current price"></td><td><input type="text" placeholder="New price"></td>';
+  tbody.appendChild(tr);
+}
+
+function addNameRow() {
+  const tbody = document.getElementById('nameRows');
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td><input type="text" placeholder="Current name"></td><td><input type="text" placeholder="New name"></td>';
+  tbody.appendChild(tr);
+}
+
+function getPriceChanges() {
+  const rows = document.querySelectorAll('#priceRows tr');
+  return Array.from(rows).map(r => {
+    const inputs = r.querySelectorAll('input');
+    return { service: inputs[0].value, from: inputs[1].value, to: inputs[2].value };
+  }).filter(r => r.service);
+}
+
+function getNameChanges() {
+  const rows = document.querySelectorAll('#nameRows tr');
+  return Array.from(rows).map(r => {
+    const inputs = r.querySelectorAll('input');
+    return { from: inputs[0].value, to: inputs[1].value };
+  }).filter(r => r.from);
+}
+
+async function submitForm() {
+  const name = document.getElementById('reqName').value.trim();
+  const email = document.getElementById('reqEmail').value.trim();
+  const desc = document.getElementById('reqDesc').value.trim();
+  const errEl = document.getElementById('submitError');
+
+  errEl.style.display = 'none';
+
+  if (!name || !email) { errEl.textContent = 'Please fill in your name and email.'; errEl.style.display = 'block'; return; }
+  if (!desc) { errEl.textContent = 'Please describe what needs to change.'; errEl.style.display = 'block'; return; }
+  if (!selectedPri) { errEl.textContent = 'Please select a priority level.'; errEl.style.display = 'block'; return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  const refId = 'REQ-' + Date.now().toString().slice(-6);
+  const page = document.getElementById('reqPage').value;
+  const notes = document.getElementById('reqNotes').value.trim();
+  const priceChanges = getPriceChanges();
+  const nameChanges = getNameChanges();
+
+  // Build email body
+  let body = `SITE CHANGE REQUEST — ${refId}\n`;
+  body += `=====================\n\n`;
+  body += `FROM: ${name} <${email}>\n`;
+  body += `PRIORITY: ${selectedPri.toUpperCase()}\n`;
+  body += `PAGE: ${page || 'Not specified'}\n`;
+  body += `CATEGORIES: ${selectedCats.join(', ') || 'Not specified'}\n\n`;
+
+  if (priceChanges.length) {
+    body += `PRICE CHANGES:\n`;
+    priceChanges.forEach(p => body += `  • ${p.service}: ${p.from} → ${p.to}\n`);
+    body += '\n';
+  }
+  if (nameChanges.length) {
+    body += `NAME CHANGES:\n`;
+    nameChanges.forEach(n => body += `  • "${n.from}" → "${n.to}"\n`);
+    body += '\n';
+  }
+
+  body += `DESCRIPTION:\n${desc}\n\n`;
+  if (notes) body += `ADDITIONAL NOTES:\n${notes}\n\n`;
+  body += `Reference: ${refId}\nSubmitted: ${new Date().toLocaleString()}\n`;
+
+  // Send via Netlify form / email
+  try {
+    const res = await fetch('https://staelfogarty.com/.netlify/functions/send-notification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service: `Site Change Request — ${selectedCats.join(', ') || 'General'}`,
+        price: 0,
+        fname: name,
+        lname: '',
+        email: email,
+        notes: body,
+        sessionId: refId,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+        // Route to Diler's email
+        override_to: 'hello@vyn.studio',
+      }),
+    });
+  } catch(e) {
+    // Silent fail — show success anyway since this is a form
+    console.log('Send attempted:', e.message);
+  }
+
+  // Also open mailto as fallback
+  const subject = encodeURIComponent(`[${selectedPri.toUpperCase()}] Site Change Request — ${name} — ${refId}`);
+  const mailBody = encodeURIComponent(body);
+  
+  // Show success
+  document.getElementById('mainForm').style.display = 'none';
+  const suc = document.getElementById('successScreen');
+  suc.style.display = 'block';
+  document.getElementById('refNum').textContent = `Reference number: ${refId}`;
+
+  // Open mailto as reliable delivery
+  setTimeout(() => {
+    window.location.href = `mailto:hello@vyn.studio?subject=${subject}&body=${mailBody}`;
+  }, 800);
+}
+
+function resetForm() {
+  document.getElementById('mainForm').style.display = 'block';
+  document.getElementById('successScreen').style.display = 'none';
+  document.getElementById('reqName').value = '';
+  document.getElementById('reqEmail').value = '';
+  document.getElementById('reqDesc').value = '';
+  document.getElementById('reqNotes').value = '';
+  document.getElementById('reqPriority').value = '';
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.pri-btn').forEach(b => b.classList.remove('selected'));
+  selectedCats = [];
+  selectedPri = '';
+  document.getElementById('catHint').textContent = 'No categories selected yet.';
+  document.getElementById('priceCard').style.display = 'none';
+  document.getElementById('nameCard').style.display = 'none';
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('submitBtn').textContent = 'Send Change Request →';
+}
+</script>
+</body>
+</html>
