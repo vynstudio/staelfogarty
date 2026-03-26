@@ -270,28 +270,28 @@ textarea.form-input{resize:vertical;min-height:72px}
           <div class="form-title" data-i18n="step1_title">Choose a service</div>
           <div class="form-subtitle" data-i18n="step1_sub">What do you need help with?</div>
           <div class="service-options" id="serviceOptions">
-            <div class="service-opt" data-service="On-Site Interpretation" data-price="95" data-unit="hr" onclick="selectService(this)">
+            <div class="service-opt" data-service="On-Site Interpretation" data-min="2" data-price="95" data-unit="hr" onclick="selectService(this)">
               <span class="so-emoji">🎙️</span>
               <div class="so-name">On-Site Interpretation</div>
               <div class="so-summary">Real-time English↔Portuguese for seminars, meetings, events and conferences.</div>
               <div class="so-price">$95 / hr · 2hr min</div>
               <span class="so-badge blue">In-Person</span>
             </div>
-            <div class="service-opt" data-service="Remote Interpretation" data-price="65" data-unit="hr" onclick="selectService(this)">
+            <div class="service-opt" data-service="Remote Interpretation" data-min="2" data-price="65" data-unit="hr" onclick="selectService(this)">
               <span class="so-emoji">💻</span>
               <div class="so-name">Remote</div>
               <div class="so-summary">Professional English↔Portuguese interpretation via Google Meet or phone.</div>
               <div class="so-price">$65 / hr · 2hr min</div>
               <span class="so-badge mint">Virtual</span>
             </div>
-            <div class="service-opt" data-service="Medical Interpretation" data-price="75" data-unit="hr" onclick="selectService(this)">
+            <div class="service-opt" data-service="Medical Interpretation" data-min="2" data-price="75" data-unit="hr" onclick="selectService(this)">
               <span class="so-emoji">🏥</span>
               <div class="so-name">Medical Interpretation</div>
               <div class="so-summary">HIPAA-aware interpretation for doctor visits, hospital stays and mental health.</div>
               <div class="so-price">$75 / hr · 2hr min</div>
               <span class="so-badge lav">Medical</span>
             </div>
-            <div class="service-opt" data-service="Immigration Services" data-price="85" data-unit="hr" onclick="selectService(this)">
+            <div class="service-opt" data-service="Immigration Services" data-min="2" data-price="85" data-unit="hr" onclick="selectService(this)">
               <span class="so-emoji">⚖️</span>
               <div class="so-name">Immigration Services</div>
               <div class="so-summary">Court depositions, immigration hearings, legal meetings and USCIS proceedings.</div>
@@ -526,7 +526,12 @@ loadAvailability();
 function selectService(el){
   document.querySelectorAll('.service-opt').forEach(o=>o.classList.remove('selected'));
   el.classList.add('selected');
-  B.service=el.dataset.service;B.price=parseInt(el.dataset.price);B.unit=el.dataset.unit;
+  B.service=el.dataset.service;
+  B.pricePerHr=parseInt(el.dataset.price);
+  B.unit=el.dataset.unit;
+  B.minHours=parseInt(el.dataset.min||'1');
+  B.hours=B.minHours;
+  B.price=B.pricePerHr*B.hours;
   document.getElementById('btn1').disabled=false;
   updateSummary();
 }
@@ -609,25 +614,40 @@ function updateSummary(){
   if(B.time){tm.textContent=B.time+' ET';tm.classList.remove('empty');}
   const name=B.fname&&B.lname?`${B.fname} ${B.lname}`:'';
   if(name){nm.textContent=name;nm.classList.remove('empty');}
-  const fee = B.price ? Math.round(B.price * 0.03 * 100) / 100 : 0;
-  const total = B.price ? (B.price + fee).toFixed(2) : '—';
+  const hours = B.hours||1;
+  const rate = B.pricePerHr||B.price||0;
+  const subtotal = rate * hours;
   const feeEl = document.getElementById('osFee');
-  if(feeEl){ if(B.price){feeEl.textContent=`$${fee.toFixed(2)}`;feeEl.classList.remove('empty');}else{feeEl.textContent='—';feeEl.classList.add('empty');} }
-  pr.textContent=B.price?`$${total}`:'$—';
+  if(feeEl){ feeEl.textContent='Added at checkout'; feeEl.classList.remove('empty'); }
+  pr.textContent=subtotal?`$${subtotal.toFixed(2)}`:'$—';
+  // Show hours line
+  const hrEl = document.getElementById('osHours');
+  if(hrEl){ hrEl.textContent = B.minHours>=2 ? `${hours} hrs · $${rate}/hr` : `$${rate}/hr`; hrEl.classList.remove('empty'); }
 }
 
 function buildReview(){
+  const hours=B.hours||1;
+  const rate=B.pricePerHr||B.price||0;
+  const subtotal=rate*hours;
+  const fee=Math.round(subtotal*0.03*100)/100;
+  const total=(subtotal+fee).toFixed(2);
+  const minNote=B.minHours>=2?`<div class="review-row"><span class="review-label">Duration</span><span class="review-value"><strong>${hours} hours</strong> (${hours}-hr minimum)</span></div>`:'';
   document.getElementById('reviewDetails').innerHTML=`
     <div class="review-row"><span class="review-label">Service</span><span class="review-value">${B.service}</span></div>
     <div class="review-row"><span class="review-label">Date</span><span class="review-value">${B.dateDisplay}</span></div>
     <div class="review-row"><span class="review-label">Time</span><span class="review-value">${B.time} ET</span></div>
+    ${minNote}
     <div class="review-row"><span class="review-label">Name</span><span class="review-value">${B.fname} ${B.lname}</span></div>
     <div class="review-row"><span class="review-label">Email</span><span class="review-value">${B.email}</span></div>
     ${B.phone?`<div class="review-row"><span class="review-label">Phone</span><span class="review-value">${B.phone}</span></div>`:''}
     ${B.notes?`<div class="review-row"><span class="review-label">Notes</span><span class="review-value">${B.notes}</span></div>`:''}
-    <div class="review-row"><span class="review-label">Processing fee (3%)</span><span class="review-value">$${(Math.round(B.price*0.03*100)/100).toFixed(2)}</span></div>
-    <div class="review-total"><span class="review-total-label">Total</span><span class="review-total-price">$${(B.price + Math.round(B.price*0.03*100)/100).toFixed(2)}</span></div>
+    <div class="review-row" style="border-top:1.5px solid var(--border);padding-top:12px;margin-top:4px"><span class="review-label">Rate</span><span class="review-value">$${rate}/hr × ${hours} hr${hours>1?'s':''}</span></div>
+    <div class="review-row"><span class="review-label">Subtotal</span><span class="review-value">$${subtotal.toFixed(2)}</span></div>
+    <div class="review-row"><span class="review-label">Processing fee (3%)</span><span class="review-value">$${fee.toFixed(2)}</span></div>
+    <div class="review-total"><span class="review-total-label">Total</span><span class="review-total-price">$${total}</span></div>
   `;
+  // Update checkout price to include hours
+  B.price=subtotal;
 }
 
 async function submitBooking(){
