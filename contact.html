@@ -373,6 +373,10 @@ textarea.form-input{resize:vertical;min-height:72px}
               <span class="os-value empty" id="osName">—</span>
             </div>
           </div>
+          <div class="os-row" style="border-bottom:none">
+            <span class="os-label">Processing fee (3%)</span>
+            <span class="os-value empty" id="osFee">—</span>
+          </div>
           <div class="os-total-row">
             <span class="os-total-label">Total</span>
             <span class="os-total-price" id="osPrice">$—</span>
@@ -568,7 +572,11 @@ function updateSummary(){
   if(B.time){tm.textContent=B.time+' ET';tm.classList.remove('empty');}
   const name=B.fname&&B.lname?`${B.fname} ${B.lname}`:'';
   if(name){nm.textContent=name;nm.classList.remove('empty');}
-  pr.textContent=B.price?`$${B.price}`:'$—';
+  const fee = B.price ? Math.round(B.price * 0.03 * 100) / 100 : 0;
+  const total = B.price ? (B.price + fee).toFixed(2) : '—';
+  const feeEl = document.getElementById('osFee');
+  if(feeEl){ if(B.price){feeEl.textContent=`$${fee.toFixed(2)}`;feeEl.classList.remove('empty');}else{feeEl.textContent='—';feeEl.classList.add('empty');} }
+  pr.textContent=B.price?`$${total}`:'$—';
 }
 
 function buildReview(){
@@ -580,7 +588,8 @@ function buildReview(){
     <div class="review-row"><span class="review-label">Email</span><span class="review-value">${B.email}</span></div>
     ${B.phone?`<div class="review-row"><span class="review-label">Phone</span><span class="review-value">${B.phone}</span></div>`:''}
     ${B.notes?`<div class="review-row"><span class="review-label">Notes</span><span class="review-value">${B.notes}</span></div>`:''}
-    <div class="review-total"><span class="review-total-label">Total</span><span class="review-total-price">$${B.price}</span></div>
+    <div class="review-row"><span class="review-label">Processing fee (3%)</span><span class="review-value">$${(Math.round(B.price*0.03*100)/100).toFixed(2)}</span></div>
+    <div class="review-total"><span class="review-total-label">Total</span><span class="review-total-price">$${(B.price + Math.round(B.price*0.03*100)/100).toFixed(2)}</span></div>
   `;
 }
 

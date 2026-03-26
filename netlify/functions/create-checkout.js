@@ -21,22 +21,40 @@ exports.handler = async (event) => {
     const staelAccountId = process.env.STAEL_STRIPE_ACCOUNT_ID || 'acct_1TEwhkRxG91XHPAc';
     const commissionAmount = Math.round(price * 100 * 0.20);
 
+    // 3% processing fee passed to client
+    const processingFeeRate = 0.03;
+    const processingFee = Math.round(price * 100 * processingFeeRate);
+    const totalAmount = price * 100 + processingFee;
+
     // Always use Connect split — her account is now fully enabled
     const sessionParams = {
       payment_method_types: ['card'],
       mode: 'payment',
       customer_email: email,
-      line_items: [{
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: service,
-            description: `${service} — ${date} at ${time} ET`,
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: service,
+              description: `${service} — ${date} at ${time} ET`,
+            },
+            unit_amount: price * 100,
           },
-          unit_amount: price * 100,
+          quantity: 1,
         },
-        quantity: 1,
-      }],
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Processing Fee',
+              description: '3% payment processing fee',
+            },
+            unit_amount: processingFee,
+          },
+          quantity: 1,
+        },
+      ],
       metadata: {
         service,
         price: String(price),
@@ -50,6 +68,7 @@ exports.handler = async (event) => {
         notes: notes || '',
       },
       payment_intent_data: {
+        // Commission is 20% of service price only, not the processing fee
         application_fee_amount: commissionAmount,
         transfer_data: { destination: staelAccountId },
       },
