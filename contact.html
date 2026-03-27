@@ -314,18 +314,29 @@ textarea.form-input{resize:vertical;min-height:72px}
             </div>
           </div>
 
-          <div id="interpDisclaimer" style="display:none;margin-top:16px;padding:16px 18px;background:#EBF2FA;border-radius:12px;border-left:4px solid #5B8EC9">
-            <p style="font-size:.88rem;color:#2A2A3A;font-weight:700;margin:0 0 4px">⏱️ 2-hour minimum booking</p>
-            <p style="font-size:.82rem;color:#4A78B0;margin:0 0 14px">This interpretation service requires a minimum of 2 hours. Add more hours if needed.</p>
-            <div style="display:flex;align-items:center;gap:12px">
-              <span style="font-size:.85rem;font-weight:600;color:#2A2A3A">Hours needed:</span>
-              <div style="display:flex;align-items:center;gap:0;border:1.5px solid #5B8EC9;border-radius:8px;overflow:hidden;background:#fff">
-                <button onclick="changeHours(-1)" style="width:36px;height:36px;border:none;background:none;font-size:1.2rem;cursor:pointer;color:#5B8EC9;font-weight:700;display:flex;align-items:center;justify-content:center" type="button">−</button>
-                <span id="hoursDisplay" style="min-width:32px;text-align:center;font-size:1rem;font-weight:700;color:#2A2A3A;padding:0 4px">2</span>
-                <button onclick="changeHours(1)" style="width:36px;height:36px;border:none;background:none;font-size:1.2rem;cursor:pointer;color:#5B8EC9;font-weight:700;display:flex;align-items:center;justify-content:center" type="button">+</button>
-              </div>
-              <span id="hoursTotalDisplay" style="font-size:.9rem;font-weight:700;color:#2A2A3A"></span>
+          <div id="interpDisclaimer" style="display:none;margin-top:16px;padding:18px 20px;background:#EBF2FA;border-radius:14px;border:2px solid #B5D4F4">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+              <span style="font-size:1rem">⏱️</span>
+              <p style="font-size:.9rem;color:#2A2A3A;font-weight:700;margin:0">2-hour minimum required</p>
             </div>
+            <p style="font-size:.82rem;color:#4A78B0;margin:0 0 16px;line-height:1.5">This service requires a minimum of 2 hours. How many hours do you need?</p>
+
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:0;border:2px solid #5B8EC9;border-radius:10px;overflow:hidden;background:#fff">
+                <button onclick="changeHours(-1)" style="width:40px;height:40px;border:none;background:none;font-size:1.3rem;cursor:pointer;color:#5B8EC9;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='#EBF2FA'" onmouseout="this.style.background='none'" type="button">−</button>
+                <span id="hoursDisplay" style="min-width:40px;text-align:center;font-size:1.1rem;font-weight:800;color:#2A2A3A;padding:0 4px;border-left:1.5px solid #B5D4F4;border-right:1.5px solid #B5D4F4;line-height:40px">2</span>
+                <button onclick="changeHours(1)" style="width:40px;height:40px;border:none;background:none;font-size:1.3rem;cursor:pointer;color:#5B8EC9;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='#EBF2FA'" onmouseout="this.style.background='none'" type="button">+</button>
+              </div>
+              <div style="background:#fff;border-radius:10px;border:1.5px solid #B5D4F4;padding:8px 16px;min-width:160px">
+                <div id="hoursBreakdown" style="font-size:.78rem;color:#7C7C96;margin-bottom:2px">2 hrs × $0/hr</div>
+                <div id="hoursTotalDisplay" style="font-size:1.1rem;font-weight:800;color:#185FA5">$0</div>
+              </div>
+              <div id="hoursSaving" style="display:none;background:#EFF9F5;border-radius:10px;border:1.5px solid #9FE1CB;padding:8px 14px">
+                <div style="font-size:.75rem;color:#0F6E56;font-weight:700">vs. 2 hours</div>
+                <div id="hoursSavingAmt" style="font-size:.85rem;color:#0F6E56;font-weight:800">+$0</div>
+              </div>
+            </div>
+            <p style="font-size:.78rem;color:#7C7C96;margin-top:10px;margin-bottom:0">💡 Booking more hours upfront saves coordination time and guarantees Stael's availability.</p>
           </div>
 
           <div class="form-btns">
@@ -544,11 +555,24 @@ function changeHours(delta){
   const newHours = Math.max(min, (B.hours||min) + delta);
   B.hours = newHours;
   B.price = B.pricePerHr * newHours;
-  const disp = document.getElementById('hoursDisplay');
-  const total = document.getElementById('hoursTotalDisplay');
-  if(disp) disp.textContent = newHours;
-  if(total) total.textContent = '$' + (B.pricePerHr * newHours).toFixed(0);
+  updateHoursDisplay();
   updateSummary();
+}
+function updateHoursDisplay(){
+  const h = B.hours || B.minHours || 2;
+  const rate = B.pricePerHr || 0;
+  const total = rate * h;
+  const baseTotal = rate * (B.minHours || 2);
+  const disp = document.getElementById('hoursDisplay');
+  const breakdown = document.getElementById('hoursBreakdown');
+  const totalEl = document.getElementById('hoursTotalDisplay');
+  const savingEl = document.getElementById('hoursSaving');
+  const savingAmt = document.getElementById('hoursSavingAmt');
+  if(disp) disp.textContent = h;
+  if(breakdown) breakdown.textContent = h + ' hr' + (h>1?'s':'') + ' × $' + rate + '/hr';
+  if(totalEl) totalEl.textContent = '$' + total.toFixed(0);
+  if(savingEl) savingEl.style.display = h > (B.minHours||2) ? 'block' : 'none';
+  if(savingAmt) savingAmt.textContent = '+$' + (total - baseTotal).toFixed(0) + ' vs. ' + (B.minHours||2) + 'hrs';
 }
 
 function selectService(el){
@@ -564,13 +588,8 @@ function selectService(el){
   // Show 2-hour disclaimer + hours selector for interpretation services
   const disc=document.getElementById('interpDisclaimer');
   if(disc) disc.style.display=B.minHours>=2?'block':'none';
-  const disp=document.getElementById('hoursDisplay');
-  const total=document.getElementById('hoursTotalDisplay');
-  if(disp) disp.textContent=B.hours;
-  if(total) total.textContent='$'+(B.pricePerHr*B.hours).toFixed(0);
+  updateHoursDisplay();
   updateSummary();
-  // Auto-advance to step 2 after short delay
-  setTimeout(()=>goStep(2), 400);
 }
 function selectDate(el){
   document.querySelectorAll('.date-chip').forEach(o=>o.classList.remove('selected'));
