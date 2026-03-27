@@ -797,7 +797,7 @@ async function submitBooking(){
   const svc=p.get('service'),name=p.get('name'),email=p.get('email');
   if(svc){
     document.querySelectorAll('.service-opt').forEach(el=>{
-      if(el.dataset.service.toLowerCase()===svc.toLowerCase()){selectService(el);setTimeout(()=>goStep(2),300);}
+      if(el.dataset.service.toLowerCase()===svc.toLowerCase()){selectService(el);}
     });
   }
   if(name){const parts=name.trim().split(' ');const fn=document.getElementById('fname');const ln=document.getElementById('lname');if(fn)fn.value=parts[0]||'';if(ln)ln.value=parts.slice(1).join(' ')||'';}
