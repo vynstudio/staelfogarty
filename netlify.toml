@@ -1,0 +1,48 @@
+[[notifications]]
+event = "submission_created"
+form = "stael-checklist"
+type = "email"
+address = "hello@vyn.studio"
+subject = "✅ Stael Gissoni — Onboarding Checklist Submitted"
+
+[functions]
+
+  [functions.emails]
+  included_files = [
+    "./emails/**"
+  ]
+
+[build]
+functions = "netlify/functions"
+
+[[headers]]
+for = "/lang.js"
+
+  [headers.values]
+  Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+for = "/*.html"
+
+  [headers.values]
+  Cache-Control = "no-cache, must-revalidate"
+
+[context]
+
+  [context.production]
+
+    [context.production.functions]
+
+      [context.production.functions.emails]
+      included_files = [
+        "./emails/**"
+      ]
+
+  [context.main]
+
+    [context.main.functions]
+
+      [context.main.functions.emails]
+      included_files = [
+        "./emails/**"
+      ]

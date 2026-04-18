@@ -1,0 +1,56 @@
+<!-- 
+  STAEL FOGARTI — TRACKING SCRIPTS
+  Facebook Pixel + Google Analytics
+  
+  SETUP REQUIRED:
+  1. Replace 702699352871342 with your Facebook Pixel ID (from Facebook Business Manager → Events Manager)
+  2. Replace G-XXXXXXXXXX with your Google Analytics Measurement ID (from GA4 → Admin → Data Streams)
+-->
+
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '702699352871342');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=702699352871342&ev=PageView&noscript=1"/></noscript>
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<!-- Custom Event Tracking -->
+<script>
+// Track booking funnel steps
+window.sfTrack = {
+  serviceSelected: function(service) {
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: service, content_type: 'service' });
+    if (typeof gtag !== 'undefined') gtag('event', 'select_service', { service_name: service });
+  },
+  initiateCheckout: function(service, price) {
+    if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout', { content_name: service, value: price, currency: 'USD' });
+    if (typeof gtag !== 'undefined') gtag('event', 'begin_checkout', { items: [{ item_name: service, price: price }] });
+  },
+  lead: function(service) {
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { content_name: service });
+    if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { service_name: service });
+  },
+  purchase: function(service, price) {
+    if (typeof fbq !== 'undefined') fbq('track', 'Purchase', { content_name: service, value: price, currency: 'USD' });
+    if (typeof gtag !== 'undefined') gtag('event', 'purchase', { transaction_id: Date.now(), value: price, currency: 'USD', items: [{ item_name: service, price: price }] });
+  }
+};
+</script>

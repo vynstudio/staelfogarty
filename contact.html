@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://staelfogarty.com/contact">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Session — Stael Gissoni | English & Portuguese Interpreter</title>
+<meta name="description" content="Book a session with Stael Gissoni. Professional English-Portuguese interpretation and language coaching. Secure online booking.">
+<meta property="og:title" content="Book a Session — Stael Gissoni">
+<meta property="og:image" content="https://staelfogarty.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#FEFBF6;--white:#FFFFFF;
+  --blue:#5B8EC9;--blue-deep:#4A78B0;--blue-light:#A3C4E9;--blue-wash:#EBF2FA;
+  --peach:#F2A07B;--peach-deep:#E08A60;--peach-wash:#FFF2EB;
+  --mint:#8FC5B5;--mint-deep:#6BAA97;--mint-wash:#EFF9F5;
+  --lavender:#B8A9D4;--lavender-wash:#F5F1FB;
+  --dark:#2A2A3A;--text:#3D3D50;--text-muted:#7C7C96;--text-light:#A5A5BA;--border:#EDECF0;
+  --radius-sm:12px;--radius-md:18px;--radius-lg:24px;--radius-xl:32px;--radius-pill:100px;
+  --shadow-sm:0 2px 8px rgba(42,42,58,0.04);--shadow-md:0 8px 32px rgba(42,42,58,0.07);
+  --shadow-lg:0 20px 48px rgba(42,42,58,0.09);--shadow-blue:0 8px 28px rgba(91,142,201,0.28);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(254,251,246,0.9);backdrop-filter:blur(24px);border-bottom:1px solid rgba(237,236,240,0.7);transition:all 0.3s}
+.nav.scrolled{box-shadow:var(--shadow-sm)}
+.nav-logo{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:800;color:var(--dark);letter-spacing:-0.02em}
+.nav-logo span{color:var(--peach)}
+.nav-menu{display:flex;align-items:center;gap:8px}
+.nav-link{padding:8px 18px;border-radius:var(--radius-pill);font-size:0.9rem;font-weight:600;color:var(--text-muted);transition:all 0.25s}
+.nav-link:hover{color:var(--text);background:rgba(91,142,201,0.06)}
+.nav-link.active{color:var(--blue);background:var(--blue-wash)}
+.nav-cta{margin-left:8px;padding:10px 26px;background:var(--blue);color:var(--white)!important;border-radius:var(--radius-sm);font-size:0.9rem;font-weight:700;transition:all 0.3s;box-shadow:var(--shadow-blue)}
+.nav-cta:hover{background:var(--blue-deep);transform:translateY(-1px)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;width:32px;height:32px;position:relative}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--dark);border-radius:2px;position:absolute;left:5px;transition:all 0.3s}
+.nav-toggle span:nth-child(1){top:9px}
+.nav-toggle span:nth-child(2){top:15px}
+.nav-toggle span:nth-child(3){top:21px}
+
+/* HERO */
+.page-hero{padding:128px 24px 52px;text-align:center;position:relative;overflow:hidden}
+.phs{position:absolute;border-radius:50%;pointer-events:none}
+.phs-1{width:400px;height:400px;top:-100px;right:-80px;background:radial-gradient(circle,var(--mint-wash) 0%,transparent 70%);opacity:0.5}
+.phs-2{width:300px;height:300px;bottom:-60px;left:-60px;background:radial-gradient(circle,var(--peach-wash) 0%,transparent 70%);opacity:0.4}
+.page-hero-inner{position:relative;z-index:1;max-width:560px;margin:0 auto}
+.page-hero h1{font-family:'Fraunces',serif;font-size:clamp(2rem,4.5vw,3rem);font-weight:800;color:var(--dark);margin-bottom:12px;letter-spacing:-0.02em;line-height:1.15;opacity:0;animation:slideUp 0.8s ease forwards 0.2s}
+.page-hero h1 em{font-style:italic;color:var(--blue)}
+.page-hero p{font-size:1rem;color:var(--text-muted);line-height:1.7;opacity:0;animation:slideUp 0.8s ease forwards 0.4s}
+
+/* BOOKING LAYOUT */
+.booking-section{padding:0 0 100px}
+.booking-grid{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
+
+/* FORM CARD */
+.booking-form-card{background:var(--white);border-radius:var(--radius-xl);padding:40px;box-shadow:var(--shadow-md);border:1.5px solid var(--border)}
+.form-step{display:none}
+.form-step.active{display:block;animation:fadeIn 0.35s ease}
+
+/* STEP INDICATOR — 3 steps */
+.step-indicator{display:flex;align-items:center;gap:0;margin-bottom:36px}
+.step-pill{display:flex;align-items:center;gap:10px;padding:10px 20px;border-radius:var(--radius-pill);font-size:0.82rem;font-weight:700;color:var(--text-light);background:transparent;transition:all 0.3s;flex-shrink:0}
+.step-pill.active{background:var(--blue-wash);color:var(--blue)}
+.step-pill.done{color:var(--mint-deep)}
+.step-pill-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:800;border:2px solid currentColor;flex-shrink:0;transition:all 0.3s}
+.step-pill.active .step-pill-num{background:var(--blue);border-color:var(--blue);color:white}
+.step-pill.done .step-pill-num{background:var(--mint);border-color:var(--mint);color:white}
+.step-divider{flex:1;height:1.5px;background:var(--border);margin:0 4px}
+.step-divider.done{background:var(--mint-light)}
+
+.form-title{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:4px}
+.form-subtitle{font-size:0.88rem;color:var(--text-muted);margin-bottom:24px;line-height:1.5}
+
+/* SERVICE CARDS — bigger, icon-forward */
+.service-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.service-opt{padding:22px 20px;border-radius:var(--radius-lg);border:2px solid var(--border);background:var(--bg);cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
+.service-opt:hover{border-color:var(--blue-light);background:var(--blue-wash);transform:translateY(-2px)}
+.service-opt.selected{border-color:var(--blue);background:var(--blue-wash);box-shadow:0 0 0 3px rgba(91,142,201,0.15)}
+.service-opt.selected::after{content:'✓';position:absolute;top:10px;right:12px;width:22px;height:22px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;line-height:22px;text-align:center}
+.so-emoji{font-size:1.8rem;margin-bottom:10px;display:block}
+.so-name{font-size:0.9rem;font-weight:800;color:var(--dark);margin-bottom:3px}
+.so-summary{font-size:0.76rem;color:var(--text-muted);line-height:1.45;margin-bottom:8px}
+.so-price{font-size:0.8rem;color:var(--text-muted);font-weight:600}
+.so-badge{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:var(--radius-pill);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
+.so-badge.blue{background:var(--blue-wash);color:var(--blue-deep)}
+.so-badge.mint{background:var(--mint-wash);color:var(--mint-deep)}
+.so-badge.lav{background:var(--lavender-wash);color:var(--lavender)}
+.so-badge.peach{background:var(--peach-wash);color:var(--peach-deep)}
+
+/* DATE PICKER — horizontal scroll strip */
+.cal-wrap{margin-bottom:24px;max-width:420px}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-header h4{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:800;color:var(--dark)}
+.cal-nav{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--text-muted);transition:all .2s}
+.cal-nav:hover{border-color:var(--blue-light);background:var(--blue-wash);color:var(--blue)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-dow{text-align:center;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);padding:6px 0}
+.cal-day{aspect-ratio:1;border-radius:8px;border:1.5px solid transparent;display:flex;align-items:center;justify-content:center;font-size:.88rem;font-weight:600;cursor:default;color:var(--text-muted);transition:all .2s;position:relative}
+.cal-day.available{border-color:var(--border);background:var(--bg);color:var(--text);cursor:pointer}
+.cal-day.available:hover{border-color:var(--blue-light);background:var(--blue-wash);color:var(--blue)}
+.cal-day.selected{border-color:var(--blue);background:var(--blue);color:#fff!important}
+.cal-day.today{font-weight:800}
+.cal-day.today::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--blue)}
+.cal-day.selected::after{background:#fff}
+
+/* TIME PICKER — pill grid */
+.time-label{font-size:0.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:28px}
+.time-chip{padding:11px 8px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--bg);cursor:pointer;text-align:center;font-size:0.82rem;font-weight:700;color:var(--text-muted);transition:all 0.2s}
+.time-chip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-wash)}
+.time-chip.selected{border-color:var(--blue);background:var(--blue);color:white}
+
+/* FORM FIELDS */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+.form-row.full{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:0.82rem;font-weight:700;color:var(--dark)}
+.form-input{padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:0.9rem;color:var(--text);background:var(--white);outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:var(--blue)}
+.form-input::placeholder{color:var(--text-light)}
+textarea.form-input{resize:vertical;min-height:72px}
+
+/* BUTTONS */
+.form-btns{display:flex;gap:10px;margin-top:24px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--radius-md);font-family:'Nunito',sans-serif;font-weight:700;font-size:0.92rem;border:none;cursor:pointer;transition:all 0.25s;text-decoration:none}
+.btn-primary{background:var(--blue);color:white;box-shadow:var(--shadow-blue)}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-2px)}
+.btn-primary:disabled{opacity:0.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--text-muted);padding:13px 16px;font-size:0.88rem}
+.btn-ghost:hover{color:var(--text)}
+.btn-pay{padding:16px 40px;font-size:1rem;width:100%;justify-content:center;margin-top:8px}
+
+/* SIDEBAR */
+.order-summary{position:sticky;top:92px}
+.os-card{background:var(--white);border-radius:var(--radius-xl);padding:30px;box-shadow:var(--shadow-md);border:1.5px solid var(--border)}
+.os-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.os-title{font-family:'Fraunces',serif;font-size:1rem;font-weight:800;color:var(--dark)}
+.os-step-badge{font-size:0.72rem;font-weight:700;padding:4px 10px;background:var(--blue-wash);color:var(--blue);border-radius:var(--radius-pill)}
+.os-rows{display:flex;flex-direction:column;gap:0}
+.os-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
+.os-row:last-child{border-bottom:none}
+.os-label{font-size:0.82rem;color:var(--text-muted)}
+.os-value{font-size:0.84rem;font-weight:700;color:var(--dark);text-align:right;max-width:160px}
+.os-value.empty{color:var(--text-light);font-weight:400;font-style:italic}
+.os-total-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0 0;margin-top:4px;border-top:2px solid var(--dark)}
+.os-total-label{font-size:0.95rem;font-weight:800;color:var(--dark)}
+.os-total-price{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:800;color:var(--blue)}
+.os-badges{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.os-badge{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius-md);font-size:0.8rem;font-weight:600;line-height:1.4}
+.os-badge.lock{background:var(--mint-wash);color:var(--mint-deep)}
+.os-badge.cal{background:var(--blue-wash);color:var(--blue-deep)}
+.os-badge-icon{font-size:1.1rem;flex-shrink:0}
+
+/* REVIEW STEP */
+.review-card{background:var(--bg);border-radius:var(--radius-lg);padding:24px;margin-bottom:24px;border:1.5px solid var(--border)}
+.review-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
+.review-row:last-child{border-bottom:none}
+.review-label{font-size:0.82rem;color:var(--text-muted)}
+.review-value{font-size:0.88rem;font-weight:700;color:var(--dark)}
+.review-total{display:flex;justify-content:space-between;align-items:center;padding:14px 0 0;margin-top:8px;border-top:2px solid var(--dark)}
+.review-total-label{font-size:0.95rem;font-weight:800;color:var(--dark)}
+.review-total-price{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:800;color:var(--blue)}
+
+/* FOOTER */
+.footer{padding:60px 0 40px;border-top:1.5px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .nav-logo{margin-bottom:14px;display:inline-block}
+.footer-brand p{font-size:0.9rem;color:var(--text-muted);line-height:1.7;max-width:280px;margin-bottom:20px}
+.footer-social{display:flex;gap:10px}
+.social-link{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--blue-wash);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.3s;color:var(--blue)}
+.social-link:hover{background:var(--blue);color:white;transform:translateY(-2px)}
+.footer-col h4{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:18px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links a{font-size:0.9rem;color:var(--text-muted);transition:color 0.25s}
+.footer-links a:hover{color:var(--blue)}
+.footer-bottom{padding-top:32px;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:0.85rem;color:var(--text-light)}
+
+/* ANIMATIONS */
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){.booking-grid{grid-template-columns:1fr}.order-summary{position:static}}
+@media(max-width:768px){
+  .nav{padding:0 16px;height:60px}
+  .nav-menu{display:none;position:absolute;top:60px;left:0;right:0;background:var(--bg);padding:12px 16px 20px;flex-direction:column;gap:4px;border-bottom:1.5px solid var(--border);box-shadow:var(--shadow-md)}
+  .nav-menu.open{display:flex}
+  .nav-toggle{display:block}
+  .nav-cta{margin-left:0;width:100%;text-align:center;justify-content:center;margin-top:4px}
+  .service-options{grid-template-columns:1fr 1fr;gap:8px}
+  .service-opt{padding:14px 12px}
+  .so-emoji{font-size:1.4rem;margin-bottom:6px}
+  .time-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .time-chip{padding:10px 6px;font-size:.78rem}
+  .cal-grid{gap:3px}
+  .cal-day{font-size:.82rem}
+  .form-row{grid-template-columns:1fr}
+  .booking-form-card{padding:24px 18px}
+  .page-hero{padding:100px 16px 36px}
+  .footer-grid{grid-template-columns:1fr;gap:28px}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+  .os-card{padding:22px 18px}
+  .step-indicator{gap:0;margin-bottom:24px}
+  .step-pill{padding:8px 10px;font-size:.76rem}
+  .step-pill-num{width:22px;height:22px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .service-options{grid-template-columns:1fr}
+  .time-grid{grid-template-columns:repeat(2,1fr)}
+  .booking-form-card{padding:20px 14px}
+  .form-btns{flex-direction:column}
+  .btn-ghost{text-align:center;justify-content:center}
+}
+
+/* ── Equal height service options ── */
+.service-options { align-items: stretch; }
+.service-opt { display: flex; flex-direction: column; }
+.so-summary { flex: 1; }
+</style>
+<script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">stael<span>.</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <div class="nav-menu" id="navMenu">
+    <a href="lessons.html" class="nav-link">English Lessons</a>
+    <a href="interpretation.html" class="nav-link">Interpretation</a>
+    <a href="about.html" class="nav-link" data-i18n="nav_about">About</a>
+    <a href="blog.html" class="nav-link" data-i18n="nav_blog">Blog</a>
+    <a href="index.html#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
+    <div id="langToggle" style="display:flex;align-items:center;border:1.5px solid var(--border);border-radius:var(--radius-pill);overflow:hidden;margin-right:4px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;"><button id="langBtn_en" onclick="I18N.set('en')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)" aria-label="Switch to English">EN</button><span style="width:1px;background:var(--border);align-self:stretch;"></span><button id="langBtn_pt" onclick="I18N.set('pt')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)" aria-label="Mudar para Português">PT</button></div><a href="contact.html" class="nav-link nav-cta active" data-i18n="nav_book">Book a Session</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="phs phs-1"></div>
+  <div class="phs phs-2"></div>
+  <div class="page-hero-inner">
+    <h1>Book your <em>session</em></h1>
+    <p>Pick a service, choose your time, and you're done — confirmed instantly.</p>
+  </div>
+</section>
+
+<section class="booking-section">
+  <div class="container">
+    <div class="booking-grid">
+
+      <!-- FORM -->
+      <div class="booking-form-card" id="formCard">
+
+        <!-- 3-step indicator -->
+        <div class="step-indicator">
+          <div class="step-pill active" id="sp1"><div class="step-pill-num" id="sn1">1</div>Service</div>
+          <div class="step-divider" id="sdiv1"></div>
+          <div class="step-pill" id="sp2"><div class="step-pill-num" id="sn2">2</div>Date & Info</div>
+          <div class="step-divider" id="sdiv2"></div>
+          <div class="step-pill" id="sp3"><div class="step-pill-num" id="sn3">3</div>Review & Pay</div>
+        </div>
+
+        <!-- STEP 1: Service -->
+        <div class="form-step active" id="step1">
+          <div class="form-title" data-i18n="step1_title">Choose a service</div>
+          <div class="form-subtitle" data-i18n="step1_sub">What do you need help with?</div>
+          <div class="service-options" id="serviceOptions">
+            <div class="service-opt" data-service="On-Site Interpretation" data-price="95" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <span class="so-emoji">🎙️</span>
+              <div class="so-name">On-Site Interpretation</div>
+              <div style="display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#EBF2FA;color:#4A78B0;letter-spacing:.04em;margin-bottom:6px">2-HR MINIMUM</div>
+              <div class="so-summary">Real-time English↔Portuguese for seminars, meetings, events and conferences.</div>
+              <div class="so-price">$95 / hr · 2-hr min</div>
+              <span class="so-badge blue">In-Person</span>
+            </div>
+            <div class="service-opt" data-service="Remote Interpretation" data-price="65" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <span class="so-emoji">💻</span>
+              <div class="so-name">Remote</div>
+              <div class="so-summary">Professional English↔Portuguese interpretation via Google Meet or phone.</div>
+              <div class="so-price">$65 / hr · 2-hr min</div>
+              <span class="so-badge mint">Virtual</span>
+            </div>
+            <div class="service-opt" data-service="Medical Interpretation" data-price="75" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <span class="so-emoji">🏥</span>
+              <div class="so-name">Medical Interpretation</div>
+              <div style="display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#EBF2FA;color:#4A78B0;letter-spacing:.04em;margin-bottom:6px">2-HR MINIMUM</div>
+              <div class="so-summary">HIPAA-aware interpretation for doctor visits, hospital stays and mental health.</div>
+              <div class="so-price">$75 / hr · 2-hr min</div>
+              <span class="so-badge lav">Medical</span>
+            </div>
+            <div class="service-opt" data-service="Legal Interpretation" data-price="85" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <span class="so-emoji">⚖️</span>
+              <div class="so-name">Legal Interpretation</div>
+              <div style="display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#EBF2FA;color:#4A78B0;letter-spacing:.04em;margin-bottom:6px">2-HR MINIMUM</div>
+              <div class="so-summary">Professional interpretation for immigration hearings, Green Card interviews, USCIS appointments, court depositions, and citizenship test preparation including mock interviews.</div>
+              <div class="so-price">$85 / hr · 2-hr min</div>
+              <span class="so-badge blue">Legal</span>
+            </div>
+            <div class="service-opt" data-service="Educational Interpretation" data-price="75" data-unit="hr" onclick="selectService(this)">
+              <span class="so-emoji">🎓</span>
+              <div class="so-name">Educational Interpretation</div>
+              <div style="display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#EBF2FA;color:#4A78B0;letter-spacing:.04em;margin-bottom:6px">2-HR MINIMUM</div>
+              <div class="so-summary">Parent-Teacher conferences, student assessments, classroom support, workshops and seminars - supporting educators during training sessions and professional development events.</div>
+              <div class="so-price">$75 / hr</div>
+              <span class="so-badge mint">Education</span>
+            </div>
+            <div class="service-opt" data-service="One-on-One Private Lessons" data-price="50" data-unit="hr" onclick="selectService(this)">
+              <span class="so-emoji">📚</span>
+              <div class="so-name">One-on-One Private Lessons</div>
+              <div class="so-summary">Personalized one-on-one English lessons tailored to your goals and skill level, focusing on speaking, listening, reading, and writing.</div>
+              <div class="so-price">$50 / hr</div>
+              <span class="so-badge peach">Teaching</span>
+            </div>
+          </div>
+
+          <div id="interpDisclaimer" style="display:none;margin-top:16px;padding:18px 20px;background:#EBF2FA;border-radius:14px;border:2px solid #B5D4F4">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+              <span style="font-size:1rem">⏱️</span>
+              <p style="font-size:.9rem;color:#2A2A3A;font-weight:700;margin:0">2-hour minimum required</p>
+            </div>
+            <p style="font-size:.82rem;color:#4A78B0;margin:0 0 16px;line-height:1.5">This service requires a minimum of 2 hours. How many hours do you need?</p>
+
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:0;border:2px solid #5B8EC9;border-radius:10px;overflow:hidden;background:#fff">
+                <button onclick="changeHours(-1)" style="width:40px;height:40px;border:none;background:none;font-size:1.3rem;cursor:pointer;color:#5B8EC9;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='#EBF2FA'" onmouseout="this.style.background='none'" type="button">−</button>
+                <span id="hoursDisplay" style="min-width:40px;text-align:center;font-size:1.1rem;font-weight:800;color:#2A2A3A;padding:0 4px;border-left:1.5px solid #B5D4F4;border-right:1.5px solid #B5D4F4;line-height:40px">2</span>
+                <button onclick="changeHours(1)" style="width:40px;height:40px;border:none;background:none;font-size:1.3rem;cursor:pointer;color:#5B8EC9;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='#EBF2FA'" onmouseout="this.style.background='none'" type="button">+</button>
+              </div>
+              <div style="background:#fff;border-radius:10px;border:1.5px solid #B5D4F4;padding:8px 16px;min-width:160px">
+                <div id="hoursBreakdown" style="font-size:.78rem;color:#7C7C96;margin-bottom:2px">2 hrs × $0/hr</div>
+                <div id="hoursTotalDisplay" style="font-size:1.1rem;font-weight:800;color:#185FA5">$0</div>
+              </div>
+              <div id="hoursSaving" style="display:none;background:#EFF9F5;border-radius:10px;border:1.5px solid #9FE1CB;padding:8px 14px">
+                <div style="font-size:.75rem;color:#0F6E56;font-weight:700">vs. 2 hours</div>
+                <div id="hoursSavingAmt" style="font-size:.85rem;color:#0F6E56;font-weight:800">+$0</div>
+              </div>
+            </div>
+            <p style="font-size:.78rem;color:#7C7C96;margin-top:10px;margin-bottom:0">💡 Booking more hours upfront saves coordination time and guarantees Stael's availability.</p>
+          </div>
+
+          <div class="form-btns">
+            <button class="btn btn-primary" id="btn1" disabled onclick="goStep(2)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Date + Time + Info (combined) -->
+        <div class="form-step" id="step2">
+          <div class="form-title" data-i18n="step2_title">When & who</div>
+          <div class="form-subtitle" data-i18n="step2_sub">Pick a date, time, and tell us about yourself.</div>
+
+          <!-- Calendar picker -->
+          <div class="cal-wrap">
+            <div class="time-label" style="margin-bottom:12px">Select a date</div>
+            <div class="cal-header">
+              <button class="cal-nav" id="calPrev" onclick="calNav(-1)" type="button">‹</button>
+              <h4 id="calTitle"></h4>
+              <button class="cal-nav" id="calNext" onclick="calNav(1)" type="button">›</button>
+            </div>
+            <div class="cal-grid" id="calGrid">
+              <div class="cal-dow">Sun</div><div class="cal-dow">Mon</div><div class="cal-dow">Tue</div>
+              <div class="cal-dow">Wed</div><div class="cal-dow">Thu</div><div class="cal-dow">Fri</div>
+              <div class="cal-dow">Sat</div>
+            </div>
+          </div>
+
+          <!-- Time grid -->
+          <div class="time-label">Select a time <span style="font-weight:400;text-transform:none;letter-spacing:0">(Eastern Time)</span></div>
+          <div class="time-grid" id="timeGrid"></div>
+
+          <!-- Divider -->
+          <div style="border-top:1.5px solid var(--border);margin:24px 0 20px"></div>
+
+          <!-- Contact info -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" data-i18n="label_fname">First Name</label>
+              <input type="text" class="form-input" id="fname" placeholder="Jane">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="label_lname">Last Name</label>
+              <input type="text" class="form-input" id="lname" placeholder="Doe">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" data-i18n="label_email">Email</label>
+              <input type="email" class="form-input" id="email" placeholder="jane@email.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="label_phone">Phone</label>
+              <input type="tel" class="form-input" id="phone" placeholder="(555) 555-5555">
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label class="form-label" data-i18n="label_notes">Notes for Stael (optional)</label>
+              <textarea class="form-input" id="notes" placeholder="Any details, requirements, or questions..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-btns">
+            <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+            <button class="btn btn-primary" id="btn2" onclick="goStep(3)">Review Booking →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Review & Pay -->
+        <div class="form-step" id="step3">
+          <div class="form-title" data-i18n="step3_title">Review & confirm</div>
+          <div class="form-subtitle" data-i18n="step3_sub">Everything looks good? Let's get you booked.</div>
+
+          <div class="review-card" id="reviewDetails"></div>
+
+          <div class="form-btns" style="flex-direction:column;gap:8px">
+            <button class="btn btn-primary btn-pay" id="btnPay" onclick="submitBooking()">Confirm & Pay →</button>
+            <button class="btn btn-ghost" style="justify-content:center" onclick="goStep(2)">← Go back and edit</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="order-summary">
+        <div class="os-card">
+          <div class="os-header">
+            <div class="os-title" data-i18n="summary_title">Booking Summary</div>
+            <div class="os-step-badge" id="osBadge">Step 1 of 3</div>
+          </div>
+          <div class="os-rows">
+            <div class="os-row">
+              <span class="os-label">Service</span>
+              <span class="os-value empty" id="osService">Not selected</span>
+            </div>
+            <div class="os-row">
+              <span class="os-label">Date</span>
+              <span class="os-value empty" id="osDate">—</span>
+            </div>
+            <div class="os-row">
+              <span class="os-label">Time</span>
+              <span class="os-value empty" id="osTime">—</span>
+            </div>
+            <div class="os-row">
+              <span class="os-label">Name</span>
+              <span class="os-value empty" id="osName">—</span>
+            </div>
+          </div>
+          <div class="os-row" style="border-bottom:none">
+            <span class="os-label">Processing fee (3%)</span>
+            <span class="os-value empty" id="osFee">—</span>
+          </div>
+          <div class="os-total-row">
+            <span class="os-total-label">Total</span>
+            <span class="os-total-price" id="osPrice">$—</span>
+          </div>
+        </div>
+        <div class="os-badges">
+          <div class="os-badge lock"><span class="os-badge-icon">🔒</span>Payment secured by Stripe — encrypted & safe</div>
+          <div class="os-badge cal"><span class="os-badge-icon">📅</span>Free cancellation up to 24 hours before your session</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">stael<span>.</span></a>
+        <p>Professional English–Portuguese interpretation and language coaching. Connecting people, one conversation at a time.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">ig</a>
+          <a href="#" class="social-link">in</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links">
+        <li><a href="interpretation.html">On-Site Interpretation</a></li>
+        <li><a href="interpretation.html">Remotes</a></li>
+        <li><a href="interpretation.html">Medical Interpretation</a></li>
+        <li><a href="interpretation.html">Legal Interpretation</a></li>
+        <li><a href="lessons.html">One-on-One Private Lessons</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#process">How It Works</a></li>
+        <li><a href="index.html#testimonials">Testimonials</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="footer-links">
+        <li><a href="mailto:hello@staelfogarty.com">hello@staelfogarty.com</a></li>
+        <li><a href="#">Orlando, FL</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Stael Gissoni. All rights reserved.</p>
+      <p><a href="privacy.html" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="terms.html" style="color:var(--text-light)">Terms of Service</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>fetch("chatbot.html").then(r=>r.text()).then(html=>{const d=document.createElement("div");d.innerHTML=html;document.body.appendChild(d);const s=d.querySelectorAll("script");s.forEach(sc=>{const n=document.createElement("script");n.textContent=sc.textContent;document.body.appendChild(n);});});</script>
+
+<script>
+// ── State ──
+const B={service:null,price:0,unit:'',date:null,dateDisplay:'',time:null,fname:'',lname:'',email:'',phone:'',notes:''};
+
+// ── Nav ──
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20));
+const toggle=document.getElementById('navToggle'),menu=document.getElementById('navMenu');
+toggle.addEventListener('click',()=>{
+  menu.classList.toggle('open');
+  const s=toggle.querySelectorAll('span');
+  if(menu.classList.contains('open')){s[0].style.transform='rotate(45deg) translate(4px,4px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-4px)';}
+  else{s[0].style.transform='none';s[1].style.opacity='1';s[2].style.transform='none';}
+});
+
+// ── Availability (from Google Calendar) ──
+let availabilityData = {};
+
+let calYear, calMonth;
+
+function renderCalendar(){
+  const grid = document.getElementById('calGrid');
+  const title = document.getElementById('calTitle');
+  // Remove day cells (keep DOW headers = first 7)
+  while(grid.children.length > 7) grid.removeChild(grid.lastChild);
+
+  title.textContent = new Date(calYear, calMonth).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const today = new Date(); today.setHours(0,0,0,0);
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+
+  // Empty cells before first day
+  for(let i=0;i<firstDay;i++){
+    const empty=document.createElement('div');
+    empty.className='cal-day';
+    grid.appendChild(empty);
+  }
+
+  for(let d=1;d<=daysInMonth;d++){
+    const date = new Date(calYear, calMonth, d);
+    date.setHours(0,0,0,0);
+    const key = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const cell = document.createElement('div');
+    cell.textContent = d;
+
+    const isAvailable = availabilityData[key] && date > today;
+    const isToday = date.getTime()===today.getTime();
+
+    if(isAvailable){
+      cell.className='cal-day available'+(isToday?' today':'');
+      cell.dataset.date=key;
+      cell.dataset.display=availabilityData[key].label;
+      cell.dataset.slots=JSON.stringify(availabilityData[key].slots);
+      cell.onclick=()=>selectCalDay(cell);
+    } else {
+      cell.className='cal-day'+(isToday?' today':'');
+    }
+
+    if(B.date===key) cell.classList.add('selected');
+    grid.appendChild(cell);
+  }
+
+  // Nav buttons
+  const now = new Date(); 
+  document.getElementById('calPrev').disabled = (calYear===now.getFullYear()&&calMonth<=now.getMonth());
+}
+
+function calNav(delta){
+  calMonth+=delta;
+  if(calMonth>11){calMonth=0;calYear++;}
+  if(calMonth<0){calMonth=11;calYear--;}
+  renderCalendar();
+}
+
+function selectCalDay(el){
+  document.querySelectorAll('.cal-day').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  B.date=el.dataset.date;
+  B.dateDisplay=el.dataset.display;
+  const slots=el.dataset.slots?JSON.parse(el.dataset.slots):null;
+  buildTimeSlots(slots);
+  B.time=null;
+  updateSummary();
+}
+
+async function loadAvailability(){
+  const grid=document.getElementById('calGrid');
+  try{
+    const res=await fetch('/.netlify/functions/get-availability');
+    const data=await res.json();
+    availabilityData=data.availability||{};
+    const now=new Date();
+    calYear=now.getFullYear();
+    calMonth=now.getMonth();
+    renderCalendar();
+    // Auto-select first available date
+    const firstKey=Object.keys(availabilityData).sort()[0];
+    if(firstKey){
+      const firstDate=new Date(firstKey+'T12:00:00');
+      calYear=firstDate.getFullYear();
+      calMonth=firstDate.getMonth();
+      renderCalendar();
+      const firstCell=document.querySelector(`.cal-day.available[data-date="${firstKey}"]`);
+      if(firstCell)selectCalDay(firstCell);
+    }
+  }catch(e){
+    console.error('Availability error:',e);
+    const title=document.getElementById('calTitle');
+    if(title)title.textContent='Could not load — contact hello@staelfogarty.com';
+  }
+}
+loadAvailability();
+
+// ── Selections ──
+function changeHours(delta){
+  if(!B.minHours) return;
+  const min = B.minHours;
+  const newHours = Math.max(min, (B.hours||min) + delta);
+  B.hours = newHours;
+  B.price = B.pricePerHr * newHours;
+  updateHoursDisplay();
+  updateSummary();
+}
+function updateHoursDisplay(){
+  const h = B.hours || B.minHours || 2;
+  const rate = B.pricePerHr || 0;
+  const total = rate * h;
+  const baseTotal = rate * (B.minHours || 2);
+  const disp = document.getElementById('hoursDisplay');
+  const breakdown = document.getElementById('hoursBreakdown');
+  const totalEl = document.getElementById('hoursTotalDisplay');
+  const savingEl = document.getElementById('hoursSaving');
+  const savingAmt = document.getElementById('hoursSavingAmt');
+  if(disp) disp.textContent = h;
+  if(breakdown) breakdown.textContent = h + ' hr' + (h>1?'s':'') + ' × $' + rate + '/hr';
+  if(totalEl) totalEl.textContent = '$' + total.toFixed(0);
+  if(savingEl) savingEl.style.display = h > (B.minHours||2) ? 'block' : 'none';
+  if(savingAmt) savingAmt.textContent = '+$' + (total - baseTotal).toFixed(0) + ' vs. ' + (B.minHours||2) + 'hrs';
+}
+
+function selectService(el){
+  document.querySelectorAll('.service-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  B.service=el.dataset.service;
+  B.pricePerHr=parseInt(el.dataset.price);
+  B.unit=el.dataset.unit;
+  B.minHours=parseInt(el.dataset.min||'1');
+  B.hours=B.minHours;
+  B.price=B.pricePerHr*B.hours;
+  document.getElementById('btn1').disabled=false;
+  // Show 2-hour disclaimer + hours selector for interpretation services
+  const disc=document.getElementById('interpDisclaimer');
+  if(disc) disc.style.display=B.minHours>=2?'block':'none';
+  updateHoursDisplay();
+  updateSummary();
+}
+function selectDate(el){
+  selectCalDay(el);
+}
+
+function buildTimeSlots(slots){
+  const grid=document.getElementById('timeGrid');
+  const allSlots=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+  const available=slots||allSlots;
+  grid.innerHTML='';
+  allSlots.forEach(slot=>{
+    const el=document.createElement('div');
+    const isAvailable=available.includes(slot);
+    el.className='time-chip'+(isAvailable?'':' unavailable');
+    el.textContent=slot;
+    if(isAvailable){el.onclick=()=>selectTime(el);}
+    else{el.style.opacity='0.3';el.style.cursor='not-allowed';el.style.textDecoration='line-through';}
+    grid.appendChild(el);
+  });
+}
+function selectTime(el){
+  document.querySelectorAll('.time-chip').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  B.time=el.textContent;
+  updateSummary();
+}
+
+// ── Steps ──
+function goStep(n){
+  if(n===3){
+    B.fname=document.getElementById('fname').value.trim();
+    B.lname=document.getElementById('lname').value.trim();
+    B.email=document.getElementById('email').value.trim();
+    B.phone=document.getElementById('phone').value.trim();
+    B.notes=document.getElementById('notes').value.trim();
+    if(!B.date||!B.time){alert('Please select a date and time.');return;}
+    if(!B.fname||!B.lname||!B.email){alert('Please fill in your name and email.');return;}
+    updateSummary();buildReview();
+  }
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  updateStepUI(n);
+  window.scrollTo({top:document.getElementById('formCard').offsetTop-100,behavior:'smooth'});
+}
+
+function updateStepUI(n){
+  const steps=[1,2,3];
+  steps.forEach(i=>{
+    const pill=document.getElementById('sp'+i);
+    const num=document.getElementById('sn'+i);
+    pill.classList.remove('active','done');
+    if(i<n){pill.classList.add('done');num.textContent='✓';}
+    else if(i===n){pill.classList.add('active');num.textContent=i;}
+    else{num.textContent=i;}
+    if(i<3){
+      const div=document.getElementById('sdiv'+i);
+      div.classList.toggle('done',i<n);
+    }
+  });
+  document.getElementById('osBadge').textContent=`Step ${n} of 3`;
+}
+
+function updateSummary(){
+  const svc=document.getElementById('osService');
+  const dt=document.getElementById('osDate');
+  const tm=document.getElementById('osTime');
+  const nm=document.getElementById('osName');
+  const pr=document.getElementById('osPrice');
+  if(B.service){svc.textContent=B.service;svc.classList.remove('empty');}
+  if(B.dateDisplay){dt.textContent=B.dateDisplay;dt.classList.remove('empty');}
+  if(B.time){tm.textContent=B.time+' ET';tm.classList.remove('empty');}
+  const name=B.fname&&B.lname?`${B.fname} ${B.lname}`:'';
+  if(name){nm.textContent=name;nm.classList.remove('empty');}
+  const hours = B.hours||1;
+  const rate = B.pricePerHr||B.price||0;
+  const subtotal = rate * hours;
+  const feeEl = document.getElementById('osFee');
+  if(feeEl){ feeEl.textContent='Added at checkout'; feeEl.classList.remove('empty'); }
+  pr.textContent=subtotal?`$${subtotal.toFixed(2)}`:'$—';
+  // Show hours line
+  const hrEl = document.getElementById('osHours');
+  if(hrEl){ hrEl.textContent = B.minHours>=2 ? `${hours} hrs · $${rate}/hr` : `$${rate}/hr`; hrEl.classList.remove('empty'); }
+}
+
+function buildReview(){
+  const hours=B.hours||1;
+  const rate=B.pricePerHr||B.price||0;
+  const subtotal=rate*hours;
+  const fee=Math.round(subtotal*0.03*100)/100;
+  const total=(subtotal+fee).toFixed(2);
+  const minNote=B.minHours>=2?`<div class="review-row"><span class="review-label">Duration</span><span class="review-value"><strong>${hours} hours</strong> (${hours}-hr minimum)</span></div>`:'';
+  document.getElementById('reviewDetails').innerHTML=`
+    <div class="review-row"><span class="review-label">Service</span><span class="review-value">${B.service}</span></div>
+    <div class="review-row"><span class="review-label">Date</span><span class="review-value">${B.dateDisplay}</span></div>
+    <div class="review-row"><span class="review-label">Time</span><span class="review-value">${B.time} ET</span></div>
+    ${minNote}
+    <div class="review-row"><span class="review-label">Name</span><span class="review-value">${B.fname} ${B.lname}</span></div>
+    <div class="review-row"><span class="review-label">Email</span><span class="review-value">${B.email}</span></div>
+    ${B.phone?`<div class="review-row"><span class="review-label">Phone</span><span class="review-value">${B.phone}</span></div>`:''}
+    ${B.notes?`<div class="review-row"><span class="review-label">Notes</span><span class="review-value">${B.notes}</span></div>`:''}
+    <div class="review-row" style="border-top:1.5px solid var(--border);padding-top:12px;margin-top:4px"><span class="review-label">Rate</span><span class="review-value">$${rate}/hr × ${hours} hr${hours>1?'s':''}</span></div>
+    <div class="review-row"><span class="review-label">Subtotal</span><span class="review-value">$${subtotal.toFixed(2)}</span></div>
+    <div class="review-row"><span class="review-label">Processing fee (3%)</span><span class="review-value">$${fee.toFixed(2)}</span></div>
+    <div class="review-total"><span class="review-total-label">Total</span><span class="review-total-price">$${total}</span></div>
+  `;
+  // Update checkout price to include hours
+  B.price=subtotal;
+}
+
+async function submitBooking(){
+  const btn=document.getElementById('btnPay');
+  btn.disabled=true;btn.textContent='Processing... ⏳';
+  try{
+    const res=await fetch('/.netlify/functions/create-checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({service:B.service,price:B.price,unit:B.unit,date:B.dateDisplay,time:B.time,fname:B.fname,lname:B.lname,email:B.email,phone:B.phone,notes:B.notes}),
+    });
+    const data=await res.json();
+    if(data.url){
+      sessionStorage.setItem('sf_booking',JSON.stringify({service:B.service,price:B.price,unit:B.unit,date:B.dateDisplay,time:B.time,fname:B.fname,lname:B.lname,email:B.email,phone:B.phone,notes:B.notes}));
+      window.location.href=data.url;
+    }else{throw new Error(data.error||'Checkout failed');}
+  }catch(err){
+    console.error(err);
+    btn.disabled=false;btn.innerHTML='Confirm & Pay →';
+    alert('Something went wrong. Please try again or contact hello@staelfogarty.com for help.');
+  }
+}
+
+// ── URL prefill ──
+(function(){
+  const p=new URLSearchParams(window.location.search);
+  const svc=p.get('service'),name=p.get('name'),email=p.get('email');
+  if(svc){
+    document.querySelectorAll('.service-opt').forEach(el=>{
+      if(el.dataset.service.toLowerCase()===svc.toLowerCase()){selectService(el);}
+    });
+  }
+  if(name){const parts=name.trim().split(' ');const fn=document.getElementById('fname');const ln=document.getElementById('lname');if(fn)fn.value=parts[0]||'';if(ln)ln.value=parts.slice(1).join(' ')||'';}
+  if(email){const em=document.getElementById('email');if(em)em.value=email;}
+})();
+</script>
+<script src="/lang.js"></script>
+</body>
+</html>
